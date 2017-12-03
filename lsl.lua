@@ -11,6 +11,7 @@ function lsl.load()
 		lsl.scroll.load()
 	else
 		lsl.ui.load()
+	end
 
 end
 
@@ -20,6 +21,7 @@ function lsl.draw()
 		lsl.scroll.draw()
 	else
 		lsl.ui.draw()
+	end
 
 end
 
@@ -29,6 +31,7 @@ function lsl.update()
 		lsl.scroll.update()
 	else
 		lsl.ui.draw()
+	end
 
 end
 
