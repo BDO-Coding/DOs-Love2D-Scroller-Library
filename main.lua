@@ -5,7 +5,10 @@ local lsl = require "lsl"
 --Loads
 function love.load()
 	--N/A
+<<<<<<< HEAD
 	lsl.ui.test()
+=======
+>>>>>>> ef5937029424202a2bf599d017b6b02ef296c46a
 end
 
 --Updates
