@@ -1,4 +1,4 @@
-scroll = {}
+local scroll = {}
 
 function scroll.setup(args)
 
@@ -53,6 +53,12 @@ function scroll.createTiledata(args)
 
 end
 
+function scroll.setTileClickListener(call,click)
+
+
+
+end
+
 function scroll.load()
 
 	mapLength,mapHeight = 10,10
@@ -72,6 +78,8 @@ function scroll.load()
 end
 
 function scroll.draw()
+
+	love.graphics.scale(zoom)
 
 	for x=1,mapLength do
 		for y=1, mapHeight do
@@ -115,10 +123,8 @@ function love.wheelmoved(x, y)
 
     if y > 0 and zoom < maxZoom then
         zoom = zoom + zoomSpeed
-        cameraX,cameraY = cameraX - zoomSpeed*zoom, cameraY - zoomSpeed*zoom
     elseif y < 0 and zoom > minZoom then
         zoom = zoom - zoomSpeed
-        cameraX,cameraY = cameraX + zoomSpeed*zoom, cameraY + zoomSpeed*zoom
  	end
 
 end
@@ -133,7 +139,7 @@ function applyScroll(num,axis) --num is x position in tiles
 		print("Arguement 2 for applyScroll() must be \"x\" or \"y\"")
 	end
 
-	return num*zoom*tileSize+(camera*tileSize)
+	return num*tileSize+(camera*tileSize)
 
 end
 

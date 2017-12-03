@@ -2,16 +2,15 @@ local lsl = {}
 
 lsl.ui = require "ui"
 lsl.scroll = require "scroll"
+lsl.imput = require "input"
 
 function lsl.load()
 
 	testing = "d"
 
-	if(testing=="d")then
 		lsl.scroll.load()
-	else
 		lsl.ui.load()
-	end
+		lsl.input.load()
 
 end
 
@@ -26,6 +25,8 @@ function lsl.draw()
 end
 
 function lsl.update()
+
+	lsl.input.update()
 
 	if(testing=="d")then
 		lsl.scroll.update()
