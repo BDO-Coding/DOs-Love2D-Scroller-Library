@@ -9,6 +9,9 @@ function love.load()
 	lsl.load()
 	lsl.scroll.setTile(1,5,lsl.scroll.createTiledata({customImage = "testCustomTile.png",minFilter = "linear",maxFilter = "linear", anstropy = 10}))
 
+	
+	
+
 end
 
 --Updates

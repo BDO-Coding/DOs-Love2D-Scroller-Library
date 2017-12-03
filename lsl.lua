@@ -2,7 +2,7 @@ local lsl = {}
 
 lsl.ui = require "ui"
 lsl.scroll = require "scroll"
-lsl.imput = require "input"
+lsl.input = require "input"
 
 function lsl.load()
 
