@@ -8,7 +8,8 @@ scroll.setup(args)
 scroll.setTile(x,y,tiledata)
 
 tiledata = scroll.createTiledata(args)
-	Required args are x and y (coordinates of top left of tile within tiledata) - option arg is customImage to use instead of a quad from tiledata
+	Args either x and y or customImage
+	The advantage of using a custom image is you can have it at a resolution higher than the rest of your tiles
 
 ---Data Types:
 

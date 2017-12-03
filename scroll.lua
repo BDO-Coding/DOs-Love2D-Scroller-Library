@@ -2,8 +2,6 @@ scroll = {}
 
 function scroll.setup(args)
 
-	print("hhhh")
-
 	if not(args.tilemap or args.mapLength or args.mapHeight or tileSize) then
 		print("Missing arguements for scroll.setup()") 
 	end
@@ -38,12 +36,12 @@ end
 
 function scroll.createTiledata(args)
 
-	if not(args.x or args.y) then print("Missing arguements for scroll.createTiledata()") end
-
-	customImage,quad = false, love.graphics.newQuad(x,y,tileSize,tileSize,tilemap:getWidth(),tilemap:getHeight())
+	if args.x and args.y then 
+		customImage,quad = false, love.graphics.newQuad(args.x,args.y,tileSize,tileSize,tilemap:getWidth(),tilemap:getHeight())
+	end
 
 	if args.customImage then
-		customImage = args.customImage
+		customImage,quad = love.graphics.newImage(args.customImage),false
 	end
 
 	return {customImage,quad}
@@ -74,9 +72,12 @@ function scroll.draw()
 	for x=1,mapLength do
 		for y=1, mapHeight do
 			if map[x][y][1] == false then
-				love.graphics.draw(tilemap,map[x][y][1],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom)
-			else 
-				love.graphics.draw(map[x][y][1],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom)
+				love.graphics.draw(tilemap,map[x][y][2],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom)
+			else
+				customImage = map[x][y][1]
+				scaling = tileSize/customImage:getWidth()
+				love.graphics.draw(customImage,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling)
+				print("broken")
 			end
 		end
 	end
