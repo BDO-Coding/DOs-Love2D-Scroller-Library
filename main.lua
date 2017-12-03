@@ -12,7 +12,6 @@ local ui = require "ui"
 --Loads
 function love.load()
 	--N/A
-	ui.test()
 end
 
 --Updates
