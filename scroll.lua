@@ -2,6 +2,8 @@ scroll = {}
 
 function scroll.setup(args)
 
+	print("hhhh")
+
 	if not(args.tilemap or args.mapLength or args.mapHeight or tileSize) then
 		print("Missing arguements for scroll.setup()") 
 	end
@@ -26,6 +28,28 @@ function scroll.setup(args)
 
 end
 
+function scroll.setTile(x,y,tiledata)
+
+	if not(x<1 or x>mapLength) and not(y<1 or y>mapHeight) then
+		map[x][y] = tiledata
+	end
+
+end	
+
+function scroll.createTiledata(args)
+
+	if not(args.x or args.y) then print("Missing arguements for scroll.createTiledata()") end
+
+	customImage,quad = false, love.graphics.newQuad(x,y,tileSize,tileSize,tilemap:getWidth(),tilemap:getHeight())
+
+	if args.customImage then
+		customImage = args.customImage
+	end
+
+	return {customImage,quad}
+
+end
+
 function scroll.load()
 
 	mapLength,mapHeight = 10,10
@@ -38,7 +62,7 @@ function scroll.load()
 	for x = 1,mapLength do
 		map[x] = {}
 		for y = 1,mapHeight do
-			map[x][y] = createBlankTiledata()
+			map[x][y] = createDefaultTiledata()
 			print() 
 		end
 	end
@@ -49,7 +73,11 @@ function scroll.draw()
 
 	for x=1,mapLength do
 		for y=1, mapHeight do
-			love.graphics.draw(tilemap,map[x][y][1],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom)
+			if map[x][y][1] == false then
+				love.graphics.draw(tilemap,map[x][y][1],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom)
+			else 
+				love.graphics.draw(map[x][y][1],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom)
+			end
 		end
 	end
 
@@ -62,9 +90,11 @@ function scroll.update()
 
 end
 
-function createBlankTiledata()
+function createDefaultTiledata()
 
-	return {love.graphics.newQuad(0,0,tileSize,tileSize,tilemap:getWidth,tilemap:getHeight)}
+	quad = love.graphics.newQuad(0,0,tileSize,tileSize,tilemap:getWidth(),tilemap:getHeight())
+
+	return {false,quad} --customImage, quad
 
 end
 
