@@ -2,11 +2,11 @@ scroll = {}
 
 function scroll.setup(args)
 
-	if not(args.tilemap or args.mapLength or args.mapHeight) then
+	if not(args.tilemap or args.mapLength or args.mapHeight or tileSize) then
 		print("Missing arguements for scroll.setup()") 
 	end
 
-	tilemap = love.graphics.newImage(args.tilemap)
+	tilemap, tileSize = love.graphics.newImage(args.tilemap), args.tileSize
 	mapLength, mapHeight = args.mapLength, args.mapHeight
 
 	minZoom,maxZoom,cameraSpeed,zoomSpeed = 0.2,1.5,0.1,0.05
@@ -27,8 +27,6 @@ function scroll.setup(args)
 end
 
 function scroll.load()
-
-	tileSize = 10
 
 	mapLength,mapHeight = 10,10
 	zoom = 1
@@ -66,7 +64,7 @@ end
 
 function createBlankTiledata()
 
-	return {love.graphics.newQuad(0,0,10,10,100,100)}
+	return {love.graphics.newQuad(0,0,tileSize,tileSize,tilemap:getWidth,tilemap:getHeight)}
 
 end
 
