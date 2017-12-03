@@ -5,7 +5,7 @@ local lsl = require "lsl"
 --Loads
 function love.load()
 	
-	lsl.ui.test()
+	lsl.ui.createMenu()
 
 end
 
