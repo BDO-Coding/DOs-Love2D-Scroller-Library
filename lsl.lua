@@ -5,7 +5,7 @@ lsl.scroll = require "scroll"
 
 function lsl.load()
 
-	testing = "d"
+	testing = "o"
 
 	if(testing=="d")then
 		lsl.scroll.load()
