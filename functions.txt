@@ -1,3 +1,0 @@
-scroll.setup(args)
-	Must be called in love.load() - required args are tilemap, mapLength, mapHeight - optionals are min/maxZoom, camera/zoomSpeed, min/maxFilter and anstropy
-	e.g. lsl.scroll.setup({tilemap = "tilemap.png", mapLength = 10, mapHeight = 20, cameraSpeed = 2})
