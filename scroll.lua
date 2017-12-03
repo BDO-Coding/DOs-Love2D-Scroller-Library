@@ -61,7 +61,6 @@ function scroll.load()
 		map[x] = {}
 		for y = 1,mapHeight do
 			map[x][y] = createDefaultTiledata()
-			print() 
 		end
 	end
 
@@ -77,7 +76,6 @@ function scroll.draw()
 				customImage = map[x][y][1]
 				scaling = tileSize/customImage:getWidth()
 				love.graphics.draw(customImage,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling)
-				print("broken")
 			end
 		end
 	end
