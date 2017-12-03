@@ -41,7 +41,12 @@ function scroll.createTiledata(args)
 	end
 
 	if args.customImage then
+		minFilter,maxFilter,anstropy = "nearest", "nearest", 0
+			if args.minFilter then minFilter = args.minFilter end
+			if args.maxFilter then maxFilter = args.maxFilter end
+			if args.anstropy then anstropy = args.anstropy end
 		customImage,quad = love.graphics.newImage(args.customImage),false
+		customImage:setFilter(minFilter,maxFilter,anstropy)
 	end
 
 	return {customImage,quad}
