@@ -2,16 +2,23 @@
 
 local ui = {}
 
-function love.load()
-
-
+function ui.load()
+	--N/A
 end
 
-function ui.test()
+function ui.createMenu()
 
 	print("test")
 
 
+end
+
+function ui.update()
+	--N/A
+end
+
+function ui.draw()
+	--N/A
 end
 
 return ui
