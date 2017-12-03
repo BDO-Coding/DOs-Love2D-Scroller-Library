@@ -5,20 +5,30 @@ lsl.scroll = require "scroll"
 
 function lsl.load()
 
-	lsl.ui.load()
-	lsl.scroll.load()
+	testing = "d"
+
+	if(testing=="d")then
+		lsl.scroll.load()
+	else
+		lsl.ui.load()
 
 end
 
 function lsl.draw()
 
-	lsl.scroll.draw()
+	if(testing=="d")then
+		lsl.scroll.draw()
+	else
+		lsl.ui.draw()
 
 end
 
 function lsl.update()
 
-	lsl.scroll.update()
+	if(testing=="d")then
+		lsl.scroll.update()
+	else
+		lsl.ui.draw()
 
 end
 
