@@ -5,19 +5,16 @@ lsl.scroll = require "scroll"
 
 function lsl.load()
 
-	testing = "d"
+	inGame = false
 
-	if(testing=="d")then
-		lsl.scroll.load()
-	else
-		lsl.ui.load()
-	end
+	lsl.scroll.load()
+	lsl.ui.load()
 
 end
 
 function lsl.draw()
 
-	if(testing=="d")then
+	if(inGame==true)then
 		lsl.scroll.draw()
 	else
 		lsl.ui.draw()
@@ -27,7 +24,7 @@ end
 
 function lsl.update()
 
-	if(testing=="d")then
+	if(inGame==true)then
 		lsl.scroll.update()
 	else
 		lsl.ui.update()
