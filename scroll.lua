@@ -53,9 +53,12 @@ function scroll.createTiledata(args)
 
 end
 
-function scroll.setTileClickListener(call,click)
+function scroll.mouseCoordsToMap(x,y)
 
+	tileX = math.floor(((x-(tileSize*cameraX))/(tileSize*zoom)))
+	tileY = math.floor(((y-(tileSize*cameraY))/(tileSize*zoom)))
 
+	return {tileX,tileY}
 
 end
 
@@ -79,7 +82,8 @@ end
 
 function scroll.draw()
 
-	love.graphics.scale(zoom)
+	love.graphics.setBackgroundColor(255, 255, 255)
+	love.graphics.setColor(255,255,255)
 
 	for x=1,mapLength do
 		for y=1, mapHeight do
@@ -139,7 +143,7 @@ function applyScroll(num,axis) --num is x position in tiles
 		print("Arguement 2 for applyScroll() must be \"x\" or \"y\"")
 	end
 
-	return num*tileSize+(camera*tileSize)
+	return num*zoom*tileSize+(camera*tileSize)
 
 end
 

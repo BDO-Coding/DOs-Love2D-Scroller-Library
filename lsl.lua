@@ -8,9 +8,9 @@ function lsl.load()
 
 	inGame = false
 
+	lsl.input.load()
 	lsl.scroll.load()
 	lsl.ui.load()
-	lsl.input.load()
 
 end
 
@@ -25,7 +25,6 @@ function lsl.draw()
 end
 
 function lsl.update()
-
 
 	lsl.input.update()
 
