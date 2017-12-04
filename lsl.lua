@@ -6,17 +6,17 @@ lsl.input = require "input"
 
 function lsl.load()
 
-	testing = "d"
+	inGame = false
 
-		lsl.scroll.load()
-		lsl.ui.load()
-		lsl.input.load()
+	lsl.scroll.load()
+	lsl.ui.load()
+	lsl.input.load()
 
 end
 
 function lsl.draw()
 
-	if(testing=="d")then
+	if(inGame==true)then
 		lsl.scroll.draw()
 	else
 		lsl.ui.draw()
@@ -26,12 +26,13 @@ end
 
 function lsl.update()
 
+
 	lsl.input.update()
 
-	if(testing=="d")then
+	if(inGame==true)then
 		lsl.scroll.update()
 	else
-		lsl.ui.draw()
+		lsl.ui.update()
 	end
 
 end
