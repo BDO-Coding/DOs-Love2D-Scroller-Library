@@ -7,7 +7,6 @@ lsl.input = require "input"
 function lsl.load()
 
 	inGame = false
-	--lsl.scroll.load()
 	lsl.input.load()
 	lsl.scroll.load()
 	lsl.ui.load()

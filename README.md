@@ -36,3 +36,14 @@ mapCoords = scroll.mouseCoordsToMap(x,y)
 tiledata:
 	{customImage,quad}
 	
+ui.addButton(x,y,xsize,ysize,r,g,b,text,page,action)
+	x = x position (left hand corner)
+	y = y position (left hand corner)
+	xsize = size of button on x axis
+	ysize = size of button on y axis
+	r = red colour of button
+	g = green colour of button
+	b = blue colour of button
+	text = what the button says
+	page = what page of the menu the button is on
+	action = what page of the menu the button will take you to (you can use minus numbers for events e.g. -1 starts game)

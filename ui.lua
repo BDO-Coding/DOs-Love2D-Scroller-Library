@@ -1,5 +1,3 @@
---testing for modules
-
 local ui = {}
 
 function ui.load()
@@ -49,21 +47,21 @@ function ui.mousepressed(BALength)
 	for i=1,BALength do
 		if buttonArray[i][9] == menuPage then
 			if love.mouse.isDown(1) == true then
-				if leftLock == false then
+				if canClick == true then
 					if mouseX > buttonArray[i][1] and mouseX < buttonArray[i][1]+buttonArray[i][3] and mouseY > buttonArray[i][2] and mouseY < buttonArray[i][2]+buttonArray[i][4] then
 						if buttonArray[i][10] == -1 then
 							inGame = true
 						else
-			            	menuPage = buttonArray[i][10]
-			           	end
-			        end
-			    end
-			    leftLock = true
-		    else
-		    	leftLock = false
-		    end
+				            menuPage = buttonArray[i][10]
+				            canClick = false
+				        end
+				    end
+				end
+			elseif love.mouse.isDown(1) == false then
+			    canClick = true
+			end
 		end
-    end
+	end
 
 end
 
