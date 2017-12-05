@@ -24,8 +24,6 @@ function lsl.draw()
 		lsl.ui.draw()
 	end
 
-	lsl.audio.draw() --probably obsolete
-
 end
 
 function lsl.update()
