@@ -9,19 +9,19 @@ function love.load()
 	lsl.load()
 	lsl.scroll.setTile(1,5,lsl.scroll.createTiledata({customImage = "testCustomTile.png",minFilter = "linear",maxFilter = "linear", anstropy = 10}))
 
-	lsl.ui.addButton(170,180,220,60,126,204,230,"Play Yay",0,-1)
-	lsl.ui.addButton(170,400,220,60,126,204,230,"Hey!",0,1)
-	lsl.ui.addButton(170,510,220,60,126,204,230,"Exit",0,"exit")
+	lsl.ui.addButton(170,180,220,60,126,204,230,"Play Yay",0,0,0,"run")
+	lsl.ui.addButton(170,400,220,60,126,204,230,"Hey!",0,0,0,1)
+	lsl.ui.addButton(170,510,220,60,126,204,230,"Exit",0,0,0,"exit")
 
-	lsl.ui.addButton(170,400,220,60,126,204,230,"Back",1,0)
+	lsl.ui.addButton(170,400,220,60,126,204,230,"Back",0,0,1,0)
 
-	lsl.ui.addButton(170,290,220,60,126,204,230,"Options",0,2)
-	lsl.ui.addButton(170,290,240,60,126,204,230,"Volume:100",2,2)
-	lsl.ui.addButton(170,400,220,60,126,204,230,"Back",2,0)
+	lsl.ui.addButton(170,290,220,60,126,204,230,"Options",0,0,0,2)
+	lsl.ui.addButton(170,290,240,60,126,204,230,"Volume:100",0,0,2,2)
+	lsl.ui.addButton(170,400,220,60,126,204,230,"Back",0,0,2,0)
 
-	lsl.ui.addButton(480,100,220,60,126,204,230,"Resume","gameMenu1",-1)
-	lsl.ui.addButton(450,300,280,60,126,204,230,"Back to menu","gameMenu1",0)
-	lsl.ui.addButton(480,500,220,60,126,204,230,"Exit","gameMenu1","exit")
+	lsl.ui.addButton(480,100,220,60,126,204,230,"Resume",0,0,"gameMenu1","run")
+	lsl.ui.addButton(450,300,280,60,126,204,230,"Back to menu",0,0,"gameMenu1",0)
+	lsl.ui.addButton(480,500,220,60,126,204,230,"Exit",0,0,"gameMenu1","exit")
 
 	lsl.ui.setMenuBackground({page = {0,1,2},image = "testCustomTile.png"})
 
@@ -30,24 +30,7 @@ end
 --Updates
 function love.update()
 	lsl.update()
-
-	if lsl.ui.getPage() == -1 then
-		inGame = true
-		gameMenu = false
-	elseif lsl.ui.getPage() == 0 then
-		inGame = false
-		gameMenu = false
-	end
-
-	if inGame == true then
-		if love.keyboard.isDown("escape") then
-			gameMenu = not gameMenu
-		end
-		if gameMenu == true then
-			lsl.ui.setPage("gameMenu1")
-		end
-	end
-
+	lsl.ui.inGameMenu("escape","gameMenu1")
 end
 
 --Drawing

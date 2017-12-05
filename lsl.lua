@@ -8,8 +8,10 @@ lsl.physics = require "physics"
 
 function lsl.load()
 
+	menuPage = 0
+	runPage = "inGame"
 	inGame = false
-	gameMenu = false
+	inGameMenuOpen = false
 
 	lsl.audio.load()
 	lsl.input.load()
@@ -35,7 +37,7 @@ function lsl.update()
 	lsl.physics.update()
 	lsl.ui.update()
 
-	if(inGame==true and lsl.ui.getPage() == -1)then
+	if(inGame==true and lsl.ui.getPage() == runPage)then
 		lsl.scroll.update()
 	end
 

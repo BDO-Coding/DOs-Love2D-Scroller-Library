@@ -5,9 +5,6 @@ function ui.load()
 	mouseX, mouseY = love.mouse.getPosition()
 
 	buttonArray = {{}}
-
-	menuPage = 0
-	leftLock = false
 	
 	click = love.audio.newSource("click.wav")
 
@@ -15,16 +12,36 @@ function ui.load()
 
 end
 
-function ui.addButton(x,y,xsize,ysize,r,g,b,text,page,action)
+function ui.inGameMenu(key,inGameMenuPage)
 
-	buttonArray[#buttonArray+1]={x,y,xsize,ysize,r,g,b,text,page,action}
+	local keyLock = false
+
+	if inGame == true then
+		if love.keyboard.isDown(key) == true then
+			inGameMenuOpen = not inGameMenuOpen
+			keyLock = true
+		elseif love.keyboard.isDown(key) == false then
+			keyLock = false
+		end
+		if inGameMenuOpen == true then
+			menuPage = inGameMenuPage
+		elseif gameMenuLock == false then
+			menuPage = runPage
+		end
+	end
+
+end
+
+function ui.addButton(x,y,xsize,ysize,r,g,b,text,textx,texty,page,action)
+
+	buttonArray[#buttonArray+1]={x,y,xsize,ysize,r,g,b,text,textx,texty,page,action}
 
 end
 
 function drawButton()
 
 	for i=1,#buttonArray do
-		if buttonArray[i][9] == menuPage then
+		if buttonArray[i][11] == menuPage then
 			if mouseX > buttonArray[i][1] and mouseX < buttonArray[i][1]+buttonArray[i][3] and mouseY > buttonArray[i][2] and mouseY < buttonArray[i][2]+buttonArray[i][4] then
 		    	love.graphics.setColor(buttonArray[i][5]-150, buttonArray[i][6]-150, buttonArray[i][7]-150)
 		    else
@@ -37,7 +54,7 @@ function drawButton()
 			for i in string.gfind(buttonArray[i][8], " ") do
 				spaces = spaces + 1
 			end --NOTE : Text print doesn't work well with spaces vv
-		    love.graphics.print(buttonArray[i][8], buttonArray[i][1]+buttonArray[i][3]/2-string.len(buttonArray[i][8])*11-5+spaces*9, buttonArray[i][2]+buttonArray[i][4]/2-20, 0, 3, 3)
+		    love.graphics.print(buttonArray[i][8], buttonArray[i][1]+buttonArray[i][3]/2-string.len(buttonArray[i][8])*11-5+spaces*10+buttonArray[i][9], buttonArray[i][2]+buttonArray[i][4]/2-20+buttonArray[i][10], 0, 3, 3)
 		end
 	end
 
@@ -46,16 +63,19 @@ end
 function mousepressed()
 
 	for i=1,#buttonArray do
-		if buttonArray[i][9] == menuPage then
+		if buttonArray[i][11] == menuPage then
 			if love.mouse.isDown(1) == true then
 				if canClick == true then
 					if mouseX > buttonArray[i][1] and mouseX < buttonArray[i][1]+buttonArray[i][3] and mouseY > buttonArray[i][2] and mouseY < buttonArray[i][2]+buttonArray[i][4] then
-			            menuPage = buttonArray[i][10]
-			            canClick = false
-				        click:play()
-				        if menuPage == "exit" then
+						if buttonArray[i][12] == "exit" then
 				        	love.event.quit()
+				        elseif buttonArray[i][12] == "run" then
+				        	menuPage = runPage
+				        else
+				        	menuPage = buttonArray[i][12]
+				            canClick = false
 				        end
+				        click:play()
 				    end
 				end
 			elseif love.mouse.isDown(1) == false then
@@ -113,6 +133,14 @@ function ui.update()
 
 	mouseX, mouseY = love.mouse.getPosition()
 	mousepressed()
+
+	if menuPage == runPage then
+		inGame = true
+		inGameMenuOpen = false
+	elseif menuPage == 0 then
+		inGame = false
+		inGameMenuOpen = false
+	end
 
 end
 
