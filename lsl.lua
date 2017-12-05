@@ -2,12 +2,14 @@ local lsl = {}
 
 lsl.ui = require "ui"
 lsl.scroll = require "scroll"
+lsl.input = require "input"
 
 function lsl.load()
 
 	inGame = false
-
 	--lsl.scroll.load()
+	lsl.input.load()
+	lsl.scroll.load()
 	lsl.ui.load()
 
 end
@@ -23,6 +25,8 @@ function lsl.draw()
 end
 
 function lsl.update()
+
+	lsl.input.update()
 
 	if(inGame==true)then
 		lsl.scroll.update()

@@ -1,4 +1,4 @@
-scroll = {}
+local scroll = {}
 
 function scroll.setup(args)
 
@@ -53,6 +53,15 @@ function scroll.createTiledata(args)
 
 end
 
+function scroll.mouseCoordsToMap(x,y)
+
+	tileX = math.floor(((x-(tileSize*cameraX))/(tileSize*zoom)))
+	tileY = math.floor(((y-(tileSize*cameraY))/(tileSize*zoom)))
+
+	return {tileX,tileY}
+
+end
+
 function scroll.load()
 
 	mapLength,mapHeight = 10,10
@@ -72,6 +81,9 @@ function scroll.load()
 end
 
 function scroll.draw()
+
+	love.graphics.setBackgroundColor(255, 255, 255)
+	love.graphics.setColor(255,255,255)
 
 	for x=1,mapLength do
 		for y=1, mapHeight do
@@ -115,10 +127,8 @@ function love.wheelmoved(x, y)
 
     if y > 0 and zoom < maxZoom then
         zoom = zoom + zoomSpeed
-        cameraX,cameraY = cameraX - zoomSpeed*zoom, cameraY - zoomSpeed*zoom
     elseif y < 0 and zoom > minZoom then
         zoom = zoom - zoomSpeed
-        cameraX,cameraY = cameraX + zoomSpeed*zoom, cameraY + zoomSpeed*zoom
  	end
 
 end
