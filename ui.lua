@@ -10,7 +10,7 @@ function ui.load()
 
 	BALength = 0
 	menuPage = 0
-	clickDelay = 0
+	leftLock = false
 	
 
 end
@@ -46,19 +46,21 @@ end
 
 function ui.mousepressed(BALength)
 
-	clickDelay = clickDelay - 0.1
-
 	for i=1,BALength do
 		if buttonArray[i][9] == menuPage then
-			if love.mouse.isDown(1) == true and clickDelay <= 0 then
-				if mouseX > buttonArray[i][1] and mouseX < buttonArray[i][1]+buttonArray[i][3] and mouseY > buttonArray[i][2] and mouseY < buttonArray[i][2]+buttonArray[i][4] then
-					if buttonArray[i][10] == -1 then
-						inGame = true
-					else
-		            	menuPage = buttonArray[i][10]
-		            	clickDelay = 1
-		           	end
-		        end
+			if love.mouse.isDown(1) == true then
+				if leftLock == false then
+					if mouseX > buttonArray[i][1] and mouseX < buttonArray[i][1]+buttonArray[i][3] and mouseY > buttonArray[i][2] and mouseY < buttonArray[i][2]+buttonArray[i][4] then
+						if buttonArray[i][10] == -1 then
+							inGame = true
+						else
+			            	menuPage = buttonArray[i][10]
+			           	end
+			        end
+			    end
+			    leftLock = true
+		    else
+		    	leftLock = false
 		    end
 		end
     end

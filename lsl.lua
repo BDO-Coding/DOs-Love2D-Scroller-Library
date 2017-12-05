@@ -7,7 +7,7 @@ function lsl.load()
 
 	inGame = false
 
-	lsl.scroll.load()
+	--lsl.scroll.load()
 	lsl.ui.load()
 
 end
