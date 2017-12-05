@@ -30,6 +30,21 @@ mapCoords = scroll.mouseCoordsToMap(x,y)
 		converts the x and y coords of the mouse into the coords of the tile they clicked
 		returns {tileX,tileY}
 
+audio.newTrack(ID,track)
+		makes a new track
+		the IDs should start at 1 and increment by 1 each time and the track shou;d be a string of the file location
+		
+audio.play(ID)
+
+audio.stop(ID)
+
+audio.volume(ID,volume)
+		the volume must be an int between 0 and 1
+
+audio.loop(ID,doesLoop)
+		doesLoop is a boolean
+		
+audio.fade
 
 ---Data Types:
 

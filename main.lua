@@ -21,6 +21,11 @@ function love.load()
 
 	lsl.ui.setMenuBackground({page = {0,1,2},image = "testCustomTile.png"})
 
+	lsl.audio.newTrack(1,"music.mp3")
+	lsl.audio.volume(1,1)
+	lsl.audio.play(1)
+	lsl.audio.fade(1,"out")
+
 end
 
 --Updates
