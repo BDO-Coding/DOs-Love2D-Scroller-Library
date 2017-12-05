@@ -10,6 +10,7 @@ function ui.load()
 	menuPage = 0
 	leftLock = false
 	
+	click = love.audio.newSource("click.wav")
 
 end
 
@@ -20,7 +21,7 @@ function ui.addButton(x,y,xsize,ysize,r,g,b,text,page,action)
 
 end
 
-function ui.drawButton(BALength)
+function drawButton(BALength)
 
 	for i=1,BALength do
 		if buttonArray[i][9] == menuPage then
@@ -42,18 +43,18 @@ function ui.drawButton(BALength)
 
 end
 
-function ui.mousepressed(BALength)
+function mousepressed(BALength)
 
 	for i=1,BALength do
 		if buttonArray[i][9] == menuPage then
 			if love.mouse.isDown(1) == true then
 				if canClick == true then
 					if mouseX > buttonArray[i][1] and mouseX < buttonArray[i][1]+buttonArray[i][3] and mouseY > buttonArray[i][2] and mouseY < buttonArray[i][2]+buttonArray[i][4] then
-						if buttonArray[i][10] == -1 then
-							inGame = true
-						else
-				            menuPage = buttonArray[i][10]
-				            canClick = false
+			            menuPage = buttonArray[i][10]
+			            canClick = false
+				        click:play()
+				        if menuPage == "exit" then
+				        	love.event.quit()
 				        end
 				    end
 				end
@@ -65,21 +66,21 @@ function ui.mousepressed(BALength)
 
 end
 
+function ui.getPage()
+	return menuPage
+end
+
 function ui.update()
 
 	mouseX, mouseY = love.mouse.getPosition()
-	ui.mousepressed(BALength)
-
-	ui.addButton(170,180,220,60,126,204,230,"Play Yay",0,-1)
-	ui.addButton(170,400,220,60,126,204,230,"Hey!",0,1)
-	ui.addButton(170,400,220,60,126,204,230,"Back",1,0)
+	mousepressed(BALength)
 
 end
 
 function ui.draw()
 
 	love.graphics.setBackgroundColor(0, 255, 0)
-	ui.drawButton(BALength)
+	drawButton(BALength)
 
 end
 

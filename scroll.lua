@@ -9,7 +9,7 @@ function scroll.setup(args)
 	tilemap, tileSize = love.graphics.newImage(args.tilemap), args.tileSize
 	mapLength, mapHeight = args.mapLength, args.mapHeight
 
-	minZoom,maxZoom,cameraSpeed,zoomSpeed = 0.2,1.5,0.1,0.05
+	minZoom,maxZoom,cameraSpeed,zoomSpeed = 0.2,1.5,0.1,0.1
 
 	if args.minZoom then minZoom = args.minZoom end
 	if args.maxZoom then maxZoom = args.maxZoom end
@@ -103,6 +103,14 @@ end
 function scroll.update()
 
 	checkForKeyPresses()
+	capZoom()
+
+end
+
+function capZoom()
+
+	if zoom>maxZoom then zoom = maxZoom end
+	if zoom<minZoom then zoom = minZoom end
 
 end
 
@@ -125,9 +133,9 @@ end
 
 function love.wheelmoved(x, y)
 
-    if y > 0 and zoom < maxZoom then
+    if y > 0 then
         zoom = zoom + zoomSpeed
-    elseif y < 0 and zoom > minZoom then
+    elseif y < 0 then
         zoom = zoom - zoomSpeed
  	end
 

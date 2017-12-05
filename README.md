@@ -46,4 +46,4 @@ ui.addButton(x,y,xsize,ysize,r,g,b,text,page,action)
 	b = blue colour of button
 	text = what the button says
 	page = what page of the menu the button is on
-	action = what page of the menu the button will take you to (you can use minus numbers for events e.g. -1 starts game)
+	action = what page of the menu the button will take you to (you can use minus numbers for events e.g. -1 starts game, also if this is equal to the string "exit" then the program will quit)
