@@ -44,7 +44,8 @@ audio.volume(ID,volume)
 audio.loop(ID,doesLoop)
 		doesLoop is a boolean
 		
-audio.fade
+audio.fade(ID,way)
+		way is a string either "in" or "out" depending on the direction you want the track to fade
 
 ---Data Types:
 
