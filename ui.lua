@@ -101,6 +101,10 @@ function ui.setMenuBackground(args)
 
 end
 
+function ui.setPage(page)
+	menuPage = page
+end
+
 function ui.getPage()
 	return menuPage
 end
