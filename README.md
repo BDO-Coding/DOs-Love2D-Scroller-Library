@@ -51,7 +51,7 @@ audio.fade
 tiledata:
 	{customImage,quad}
 	
-ui.addButton(x,y,xsize,ysize,r,g,b,text,page,action)
+ui.addButton(x,y,xsize,ysize,r,g,b,text,textx,texty,page,action)
 	x = x position (left hand corner)
 	y = y position (left hand corner)
 	xsize = size of button on x axis
@@ -60,6 +60,8 @@ ui.addButton(x,y,xsize,ysize,r,g,b,text,page,action)
 	g = green colour of button
 	b = blue colour of button
 	text = what the button says
+	textx = used to change the x of the text
+	texty = used to change the y of the text
 	page = what page of the menu the button is on
 	action = what page of the menu the button will take you to, can be any type of variable (you can use this to set a certain action to trigger an event, if this is equal to the string "exit" then the program will quit)
 
@@ -67,3 +69,7 @@ ui.setMenuBackground({page = {x}, image/colour = y})
 	page = the page that you want the background to appear on, can be an array of pages
 	image = set this on different page from colour, set this as the name of the image e.g. "test.png"
 	colour = set this on different page from image, set this as an array containing the r g b of the colours e.g. {255,0,145}
+
+ui.inGameMenu(key,inGameMenuPage)
+	key = what key on the keyboard you want to open the menu
+	inGameMenuPage = what opening page you want the inGameMenu to be on
