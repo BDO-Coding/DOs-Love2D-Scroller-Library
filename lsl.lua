@@ -3,11 +3,13 @@ local lsl = {}
 lsl.ui = require "ui"
 lsl.scroll = require "scroll"
 lsl.input = require "input"
+lsl.audio = require "audio"
 
 function lsl.load()
 
 	inGame = false
-	--lsl.scroll.load()
+
+	lsl.audio.load()
 	lsl.input.load()
 	lsl.scroll.load()
 	lsl.ui.load()
@@ -22,11 +24,14 @@ function lsl.draw()
 		lsl.ui.draw()
 	end
 
+	lsl.audio.draw() --probably obsolete
+
 end
 
 function lsl.update()
 
 	lsl.input.update()
+	lsl.audio.update()
 
 	if(inGame==true)then
 		lsl.scroll.update()
