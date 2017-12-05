@@ -15,9 +15,9 @@ tiledata = scroll.createTiledata(args)
 
 input.setClickListener(args)
 		Must have ID(just make these integers incrementing from 1 by 1 each time), click(either 1,2, or 3), event(the function you want it to call e.g. "testFunction").
+		There is an optional arguement of condition (set out as condition = {minX,maxX,minY,maxY}) - this will only return a click if it is within the specified region
 		It will put x,y of the click into the function you nominate.
 		You may only enter a function that is inside input or main (moduleName.functionName doesn't work with G_ for some reason)
-		EVENT CONDITIONS (E.G ONLY ACTIVATE IF X IS > 10) ARE WIP
 
 input.activateClickListener(ID)
 			stops the listener requested from working

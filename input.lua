@@ -38,6 +38,24 @@ function input.update()
 
 end
 
+function applyConditions(x,y,ID)
+
+	conditions = clickListeners[ID][4]
+
+	if not(conditions == false) then
+
+	minx,maxx,miny,maxy = conditions[1],conditions[2],conditions[3],conditions[4]
+
+	if x > minx and x < maxx and y > miny and y < maxy then
+		return true
+	end	
+
+	else
+		return true
+	end
+
+end
+
 function listenForClicks()
 
 	for i=1,3 do
@@ -49,7 +67,9 @@ function listenForClicks()
 		if clickListeners[i][3] == true then
 			if mouseButtons[clickListeners[i][1]][3] == true then
 				if mouseButtons[clickListeners[i][1]][2] == false then
-					_G[clickListeners[i][2]](love.mouse.getX(),love.mouse.getY())
+					if applyConditions(love.mouse.getX(),love.mouse.getY(),i) == true then
+						_G[clickListeners[i][2]](love.mouse.getX(),love.mouse.getY())
+					end
 				end
 			end
 		end
