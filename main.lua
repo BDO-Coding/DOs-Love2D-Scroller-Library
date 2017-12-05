@@ -28,7 +28,7 @@ end
 function printTileLocation(x,y)
 
 	tilePos = lsl.scroll.mouseCoordsToMap(x,y)
-	print("The tile you clicked was: "tilePos[1]..", "..tilePos[2])
+	--print("The tile you clicked was: "tilePos[1]..", "..tilePos[2])
 
 end
 
