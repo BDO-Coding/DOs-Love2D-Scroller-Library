@@ -19,23 +19,21 @@ function love.load()
 
 	lsl.ui.addButton(170,400,220,60,126,204,230,"Back",1,0)
 
+	lsl.ui.setMenuBackground({page = {0,1,2},image = "testCustomTile.png"})
+
 end
 
 --Updates
 function love.update()
-	--N/A
 	lsl.update()
 
 	if lsl.ui.getPage() == -1 then
 		inGame = true
 	end
-
-
 end
 
 --Drawing
 function love.draw()
-	--N/A
 	lsl.draw()
 end
 

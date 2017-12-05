@@ -46,4 +46,9 @@ ui.addButton(x,y,xsize,ysize,r,g,b,text,page,action)
 	b = blue colour of button
 	text = what the button says
 	page = what page of the menu the button is on
-	action = what page of the menu the button will take you to (you can use minus numbers for events e.g. -1 starts game, also if this is equal to the string "exit" then the program will quit)
+	action = what page of the menu the button will take you to, can be any type of variable (you can use this to set a certain action to trigger an event, if this is equal to the string "exit" then the program will quit)
+
+ui.setMenuBackground({page = {x}, image/colour = y})
+	page = the page that you want the background to appear on, can be an array of pages
+	image = set this on different page from colour, set this as the name of the image e.g. "test.png"
+	colour = set this on different page from image, set this as an array containing the r g b of the colours e.g. {255,0,145}
