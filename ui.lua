@@ -14,19 +14,24 @@ end
 
 function ui.inGameMenu(key,inGameMenuPage)
 
-	local keyLock = false
-
 	if inGame == true then
 		if love.keyboard.isDown(key) == true then
-			inGameMenuOpen = not inGameMenuOpen
-			keyLock = true
+			if canOpenMenu == true then
+				inGameMenuOpen = not inGameMenuOpen
+				canOpenMenu = false
+			end
 		elseif love.keyboard.isDown(key) == false then
-			keyLock = false
+			canOpenMenu = true
 		end
 		if inGameMenuOpen == true then
 			menuPage = inGameMenuPage
-		elseif gameMenuLock == false then
+		elseif inGameMenuOpen == false then
 			menuPage = runPage
+		end
+		if menuPage == inGameMenuPage or menuPage == runPage then
+			inGame = true
+		else
+			inGame = false
 		end
 	end
 

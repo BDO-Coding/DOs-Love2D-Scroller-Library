@@ -37,7 +37,7 @@ function lsl.update()
 	lsl.physics.update()
 	lsl.ui.update()
 
-	if(inGame==true and lsl.ui.getPage() == runPage)then
+	if(inGame==true and menuPage == runPage)then
 		lsl.scroll.update()
 	end
 

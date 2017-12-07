@@ -133,11 +133,13 @@ end
 
 function love.wheelmoved(x, y)
 
-    if y > 0 then
-        zoom = zoom + zoomSpeed
-    elseif y < 0 then
-        zoom = zoom - zoomSpeed
- 	end
+	if inGame == true and menuPage == runPage then
+	    if y > 0 then
+	        zoom = zoom + zoomSpeed
+	    elseif y < 0 then
+	        zoom = zoom - zoomSpeed
+	 	end
+	end
 
 end
 
