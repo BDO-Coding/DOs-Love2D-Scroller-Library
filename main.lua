@@ -19,9 +19,9 @@ function love.load()
 	lsl.ui.addButton(170,290,240,60,126,204,230,"Volume:100",0,0,2,2)
 	lsl.ui.addButton(170,400,220,60,126,204,230,"Back",0,0,2,0)
 
-	lsl.ui.addButton(480,100,220,60,126,204,230,"Resume",0,0,"gameMenu1","run")
-	lsl.ui.addButton(450,300,280,60,126,204,230,"Back to menu",0,0,"gameMenu1",0)
-	lsl.ui.addButton(480,500,220,60,126,204,230,"Exit",0,0,"gameMenu1","exit")
+	lsl.ui.addButton(480,100,220,60,126,204,230,"Resume",-5,0,"gameMenu1","run")
+	lsl.ui.addButton(450,300,280,60,126,204,230,"Back to menu",-10,0,"gameMenu1",0)
+	lsl.ui.addButton(480,500,220,60,126,204,230,"Exit",15,0,"gameMenu1","exit")
 
 	lsl.ui.setMenuBackground({page = {0,1,2},image = "testCustomTile.png"})
 
@@ -44,4 +44,4 @@ function love.draw()
 end
 
 --
---NOTE TO ANYONE USING THIS LIBRARY: main.lua is un-needed as none of the functions are stored here. Only use this file for experimentations with the library.
+--NOTE TO ANYONE USING THIS LIBRARY: main.lua is un-needed as none of the functions are stored here. Only use this file for experimentations with the library. Although you must require lsl

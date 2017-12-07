@@ -37,9 +37,9 @@ function ui.inGameMenu(key,inGameMenuPage)
 
 end
 
-function ui.addButton(x,y,xsize,ysize,r,g,b,text,textx,texty,page,action)
+function ui.addButton(x,y,xsize,ysize,r,g,b,text,textx,texty,page,action,type)
 
-	buttonArray[#buttonArray+1]={x,y,xsize,ysize,r,g,b,text,textx,texty,page,action}
+	buttonArray[#buttonArray+1]={x,y,xsize,ysize,r,g,b,text,textx,texty,page,action,type}
 
 end
 
@@ -58,7 +58,7 @@ function drawButton()
 		    local spaces = 0
 			for i in string.gfind(buttonArray[i][8], " ") do
 				spaces = spaces + 1
-			end --NOTE : Text print doesn't work well with spaces vv
+			end --NOTE : Text centralisation doesn't work great so use textx and texty to get it right vv
 		    love.graphics.print(buttonArray[i][8], buttonArray[i][1]+buttonArray[i][3]/2-string.len(buttonArray[i][8])*11-5+spaces*10+buttonArray[i][9], buttonArray[i][2]+buttonArray[i][4]/2-20+buttonArray[i][10], 0, 3, 3)
 		end
 	end
