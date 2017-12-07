@@ -55,10 +55,10 @@ end
 
 function scroll.mouseCoordsToMap(x,y)
 
-	tileX = math.floor(((x-(tileSize*cameraX))/(tileSize*zoom)))
-	tileY = math.floor(((y-(tileSize*cameraY))/(tileSize*zoom)))
+	tileX = math.floor(((x-cameraX)/(tileSize*zoom)))
+	tileY = math.floor(((y-cameraY)/(tileSize*zoom)))
 
-	return {tileX,tileY}
+	return tileX,tileY
 
 end
 
@@ -88,11 +88,11 @@ function scroll.draw()
 	for x=1,mapLength do
 		for y=1, mapHeight do
 			if map[x][y][1] == false then
-				love.graphics.draw(tilemap,map[x][y][2],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom)
+				love.graphics.draw(tilemap,map[x][y][2],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom,(tileSize*zoom)/2,(tileSize*zoom)/2)
 			else
 				customImage = map[x][y][1]
 				scaling = tileSize/customImage:getWidth()
-				love.graphics.draw(customImage,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling)
+				love.graphics.draw(customImage,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling,(customImage:getWidth()*zoom)/2,(customImage:getWidth()*zoom)/2)
 			end
 		end
 	end
@@ -153,7 +153,7 @@ function applyScroll(num,axis) --num is x position in tiles
 		print("Arguement 2 for applyScroll() must be \"x\" or \"y\"")
 	end
 
-	return num*zoom*tileSize+(camera*tileSize)
+	return num*zoom*tileSize+camera
 
 end
 
