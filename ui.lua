@@ -1,14 +1,17 @@
 local ui = {}
 
-function ui.load()
-	
-	mouseX, mouseY = love.mouse.getPosition()
+local utf8 = require("utf8")
 
-	buttonArray = {{}}
+function ui.load()
+
+	lineTimer = 0
+
+	mouseX, mouseY = love.mouse.getPosition()
 	
 	click = love.audio.newSource("click.wav")
 
 	backgrounds = {} --template {page,backgroundType,background}
+	buttonArray = {{}}
 
 end
 
@@ -37,9 +40,13 @@ function ui.inGameMenu(key,inGameMenuPage)
 
 end
 
-function ui.addButton(x,y,xsize,ysize,r,g,b,text,textx,texty,page,action,type)
+function ui.addButton(x,y,xsize,ysize,r,g,b,text,textx,texty,page,action)
 
-	buttonArray[#buttonArray+1]={x,y,xsize,ysize,r,g,b,text,textx,texty,page,action,type}
+	if action == "inputText" then
+		buttonArray[#buttonArray+1]={x,y,xsize,ysize,r,g,b,text,textx,texty,page,action,""}
+	else
+		buttonArray[#buttonArray+1]={x,y,xsize,ysize,r,g,b,text,textx,texty,page,action}
+	end
 
 end
 
@@ -55,11 +62,43 @@ function drawButton()
 		    love.graphics.rectangle("fill", buttonArray[i][1], buttonArray[i][2], buttonArray[i][3], buttonArray[i][4])
 		    love.graphics.setColor(0, 0, 0)
 		    love.graphics.rectangle("line", buttonArray[i][1], buttonArray[i][2], buttonArray[i][3], buttonArray[i][4])
-		    local spaces = 0
-			for i in string.gfind(buttonArray[i][8], " ") do
-				spaces = spaces + 1
-			end --NOTE : Text centralisation doesn't work great so use textx and texty to get it right vv
-		    love.graphics.print(buttonArray[i][8], buttonArray[i][1]+buttonArray[i][3]/2-string.len(buttonArray[i][8])*11-5+spaces*10+buttonArray[i][9], buttonArray[i][2]+buttonArray[i][4]/2-20+buttonArray[i][10], 0, 3, 3)
+		    if buttonArray[i][12] == "inputText" or buttonArray[i][12] == "typing" then
+		    	love.graphics.print(buttonArray[i][8], buttonArray[i][1]+buttonArray[i][9]+10, buttonArray[i][2]+buttonArray[i][10]+10, 0, 3, 3)
+		    	love.graphics.setColor(255, 255, 255)
+		    	love.graphics.rectangle("fill", buttonArray[i][1]+string.len(buttonArray[i][8])*23, buttonArray[i][2]+5, -string.len(buttonArray[i][8])*23+buttonArray[i][3]-5, buttonArray[i][4]-10)
+		    else
+			    local spaces = 0
+				for i in string.gfind(buttonArray[i][8], " ") do
+					spaces = spaces + 1
+				end --NOTE : Text centralisation doesn't work great so use textx and texty to get it right vv
+			    love.graphics.print(buttonArray[i][8], buttonArray[i][1]+buttonArray[i][3]/2-string.len(buttonArray[i][8])*11-5+spaces*10+buttonArray[i][9], buttonArray[i][2]+buttonArray[i][4]/2-20+buttonArray[i][10], 0, 3, 3)
+			end
+		end
+	end
+
+end
+
+function drawInputText()
+
+	for i=1,#buttonArray do
+		if buttonArray[i][11] == menuPage then
+			love.graphics.setColor(0, 0, 0)
+	    	if buttonArray[i][12] == "typing" then
+	    		if (love.mouse.isDown(1) == true and (mouseX < buttonArray[i][1] or mouseX > buttonArray[i][1]+buttonArray[i][3] or mouseY < buttonArray[i][2] or mouseY > buttonArray[i][2]+buttonArray[i][4])) or menuPage ~= buttonArray[i][11] then
+					buttonArray[i][12] = "inputText"
+					lineTimer = 1
+				end
+	    		lineTimer = lineTimer - 0.05
+	    		if lineTimer <= 0 then
+					love.graphics.print("|",buttonArray[i][1]+string.len(buttonArray[i][8])*22+string.len(buttonArray[i][13])*23,buttonArray[i][2]+1, 0, 3.6, 3.63)
+				end
+				if lineTimer <= -1 then
+					lineTimer = 1
+				end
+			end
+			if buttonArray[i][12] == "inputText" or buttonArray[i][12] == "typing" then
+				love.graphics.print(buttonArray[i][13],buttonArray[i][1]+string.len(buttonArray[i][8])*23+1,buttonArray[i][2]+7, 0, 3.6, 3.63)
+			end
 		end
 	end
 
@@ -76,7 +115,10 @@ function mousepressed()
 				        	love.event.quit()
 				        elseif buttonArray[i][12] == "run" then
 				        	menuPage = runPage
-				        else
+				        elseif buttonArray[i][12] == "inputText" then
+				        	buttonArray[i][12] = "typing"
+				        	lineTimer = 0
+				        elseif buttonArray[i][12] ~= "typing" then
 				        	menuPage = buttonArray[i][12]
 				            canClick = false
 				        end
@@ -86,6 +128,31 @@ function mousepressed()
 			elseif love.mouse.isDown(1) == false then
 			    canClick = true
 			end
+		end
+	end
+
+end
+
+function love.textinput(text)
+
+	for i=1,#buttonArray do
+		if buttonArray[i][12] == "typing" then
+			buttonArray[i][13] = buttonArray[i][13] .. text
+		end
+	end
+
+end
+
+function love.keypressed(key)
+
+	for i=1,#buttonArray do
+		if buttonArray[i][12] == "typing" then
+		    if key == "backspace" then
+		        local byteoffset = utf8.offset(buttonArray[i][13], -1)
+		        if byteoffset then
+		            buttonArray[i][13] = string.sub(buttonArray[i][13], 1, byteoffset - 1)
+		        end
+		    end
 		end
 	end
 
@@ -134,6 +201,14 @@ function ui.getPage()
 	return menuPage
 end
 
+function ui.getInputButtonText(ID)
+	if buttonArray[ID][13] ~= nil then
+		return buttonArray[ID][13]
+	else
+		return nil
+	end
+end
+
 function ui.update()
 
 	mouseX, mouseY = love.mouse.getPosition()
@@ -153,6 +228,7 @@ function ui.draw()
 
 	drawMenuBackgrounds()
 	drawButton()
+	drawInputText()
 
 end
 
