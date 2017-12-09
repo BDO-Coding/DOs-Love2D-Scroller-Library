@@ -101,6 +101,20 @@ function capZoom()
 
 end
 
+function drawScrollingObject(object)
+
+	x,y = object[3][1], object[3][2]
+	image,quad = object[5][1], object[5][2]
+	scaling = object[6]
+
+	if quad == false then
+		love.graphics.draw(image,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling)
+	else
+		love.graphics.draw(image,quad,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling)
+	end
+
+end
+
 function createDefaultTiledata()
 
 	quad = love.graphics.newQuad(0,0,tileSize,tileSize,tilemap:getWidth(),tilemap:getHeight())
@@ -138,11 +152,11 @@ function drawTiles()
 	for x=1,mapLength do
 		for y=1, mapHeight do
 			if map[x][y][1] == false then
-				love.graphics.draw(tilemap,map[x][y][2],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom,(tileSize*zoom)/2,(tileSize*zoom)/2)
+				love.graphics.draw(tilemap,map[x][y][2],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom)
 			else
 				customImage = map[x][y][1]
 				scaling = tileSize/customImage:getWidth()
-				love.graphics.draw(customImage,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling,(customImage:getWidth()*zoom)/2,(customImage:getWidth()*zoom)/2)
+				love.graphics.draw(customImage,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling)
 			end
 		end
 	end

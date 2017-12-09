@@ -25,6 +25,7 @@ function lsl.draw()
 
 	if(inGame==true)then
 		lsl.scroll.draw()
+		lsl.physics.draw()
 	end
 	lsl.ui.draw()
 
