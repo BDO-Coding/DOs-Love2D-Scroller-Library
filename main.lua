@@ -6,7 +6,7 @@ local lsl = require "lsl"
 function love.load()
 
 	lsl.scroll.setup({tilemap = "tilemap.png", tileSize = 10, mapLength = 20, mapHeight = 10, maxZoom = 10, cameraSpeed = 10, zoomSpeed = 0.3})
-	lsl.physics.setup()
+	lsl.physics.setup({})
 
 	lsl.load()
 
@@ -23,9 +23,9 @@ function love.load()
 	lsl.ui.addButton(170,290,240,60,126,204,230,"Volume:100",0,0,2,2)
 	lsl.ui.addButton(170,400,220,60,126,204,230,"Back",0,0,2,0)
 
-	lsl.ui.addButton(480,100,220,60,126,204,230,"Resume",-5,0,"gameMenu1","run")
-	lsl.ui.addButton(450,300,280,60,126,204,230,"Back to menu",-10,0,"gameMenu1",0)
-	lsl.ui.addButton(480,500,220,60,126,204,230,"Exit",15,0,"gameMenu1","exit")
+	lsl.ui.addButton(480,100,220,60,126,204,230,"Resume",5,0,"gameMenu1","run")
+	lsl.ui.addButton(450,300,280,60,126,204,230,"Back to menu",5,0,"gameMenu1",0)
+	lsl.ui.addButton(480,500,220,60,126,204,230,"Exit",2,0,"gameMenu1","exit")
 
 	lsl.ui.setMenuBackground({page = {0,1,2},image = "testCustomTile.png"})
 
@@ -44,6 +44,7 @@ function love.update()
 	lsl.ui.inGameMenu("escape","gameMenu1")
 	print(lsl.ui.getInputButtonText(4))
 	--lsl.audio.volume(1,lsl.ui.getInputButtonText(7))
+
 end
 
 --Drawing
