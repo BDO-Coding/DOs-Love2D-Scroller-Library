@@ -2,6 +2,8 @@ local scroll = {}
 
 function scroll.setup(args)
 
+	hasBeenSetup = true
+
 	if not(args.tilemap or args.mapLength or args.mapHeight or tileSize) then
 		print("Missing arguements for scroll.setup()") 
 	end
@@ -63,6 +65,8 @@ function scroll.mouseCoordsToMap(x,y)
 end
 
 function scroll.load()
+
+	if not(hasBeenSetup == true) then print("scroll.setup() must be called before lsl.load()") end
 
 	mapLength,mapHeight = 10,10
 	zoom = 1

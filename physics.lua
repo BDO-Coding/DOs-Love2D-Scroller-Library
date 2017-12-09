@@ -1,7 +1,7 @@
 local physics = {}
 
 function physics.load()
-	--TODO
+
 	objects = {} --template: ID, doesScroll?, {x,y}, {xVel,yVel}, {image,quad}, scaling
 	objectIDs = {}
 
@@ -10,6 +10,7 @@ end
 function physics.update()
 	--TODO
 	applyVelocities()
+	degradeVelocities()
 
 end
 
@@ -22,6 +23,14 @@ function physics.draw()
 			end
 		end
 	end
+
+end
+
+function physics.setup(args)
+
+	friction = 0.001
+
+	if args.friction then friction = args.friction end
 
 end
 
@@ -49,6 +58,12 @@ function applyVelocities()
 			objects[objectIDs[i][2]][3][2] = objects[objectIDs[i][2]][3][2] + objects[objectIDs[i][2]][4][2]
 		end
 	end
+
+end
+
+function degradeVelocities()
+
+	
 
 end
 

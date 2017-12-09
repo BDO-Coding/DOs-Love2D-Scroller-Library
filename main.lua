@@ -6,7 +6,10 @@ local lsl = require "lsl"
 function love.load()
 
 	lsl.scroll.setup({tilemap = "tilemap.png", tileSize = 10, mapLength = 20, mapHeight = 10, maxZoom = 10, cameraSpeed = 10, zoomSpeed = 0.3})
+	lsl.physics.setup()
+
 	lsl.load()
+
 	lsl.scroll.setTile(1,5,lsl.scroll.createTiledata({customImage = "testCustomTile.png",minFilter = "linear",maxFilter = "linear", anstropy = 10}))
 
 	lsl.ui.addButton(170,180,220,60,126,204,230,"Play Yay",0,0,0,"run")
@@ -27,9 +30,8 @@ function love.load()
 	lsl.ui.setMenuBackground({page = {0,1,2},image = "testCustomTile.png"})
 
 	lsl.audio.newTrack(1,"music.mp3")
-	lsl.audio.volume(1,1)
+	lsl.audio.volume(1,0.2)
 	lsl.audio.play(1)
-	lsl.audio.fade(1,"out")
 
 	lsl.physics.newObject("ball",5,5,"coal.png",0.1)
 	lsl.physics.push("ball",0.01,0)
@@ -41,6 +43,7 @@ function love.update()
 	lsl.update()
 	lsl.ui.inGameMenu("escape","gameMenu1")
 	print(lsl.ui.getInputButtonText(4))
+	--lsl.audio.volume(1,lsl.ui.getInputButtonText(7))
 end
 
 --Drawing
