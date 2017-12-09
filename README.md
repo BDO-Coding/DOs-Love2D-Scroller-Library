@@ -72,7 +72,11 @@ ui.addButton(x,y,xsize,ysize,r,g,b,text,textx,texty,page,action)
 	textx = used to change the x of the text
 	texty = used to change the y of the text
 	page = what page of the menu the button is on
-	action = what page of the menu the button will take you to, can be any type of variable (you can use this to set a certain action to trigger an event, if this is equal to the string "exit" then the program will quit)
+	action = what page of the menu the button will take you to, can be any type of variable, you can use this to set a certain action to trigger an event, special actions are listed below:
+		->"exit" = closes program
+		->"run" = runs program and leaves menu
+		->"inputText" = box is a box for inputting text
+		->"typing" = state of "inputText" where you are typing in the box
 
 ui.setMenuBackground({page = {x}, image/colour = y})
 	page = the page that you want the background to appear on, can be an array of pages
@@ -82,6 +86,9 @@ ui.setMenuBackground({page = {x}, image/colour = y})
 ui.inGameMenu(key,inGameMenuPage)
 	key = what key on the keyboard you want to open the menu
 	inGameMenuPage = what opening page you want the inGameMenu to be on
+
+ui.getInputButtonText(ID)
+	ID = the button you want to find the input text of, find the ID by counting down from the button you create first until you find the button you are looking for, the number you counted to is the ID
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 ------Data Types------------------------------------------------------------------------------------------------------------------------------------------

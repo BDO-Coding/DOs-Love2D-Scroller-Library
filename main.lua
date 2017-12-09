@@ -13,6 +13,7 @@ function love.load()
 	lsl.ui.addButton(170,400,220,60,126,204,230,"Hey!",0,0,0,1)
 	lsl.ui.addButton(170,510,220,60,126,204,230,"Exit",0,0,0,"exit")
 
+	lsl.ui.addButton(170,180,500,60,126,204,230,"Type:",0,0,1,"inputText")
 	lsl.ui.addButton(170,400,220,60,126,204,230,"Back",0,0,1,0)
 
 	lsl.ui.addButton(170,290,220,60,126,204,230,"Options",0,0,0,2)
@@ -38,6 +39,7 @@ end
 function love.update()
 	lsl.update()
 	lsl.ui.inGameMenu("escape","gameMenu1")
+	print(lsl.ui.getInputButtonText(3))
 end
 
 --Drawing
