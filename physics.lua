@@ -9,6 +9,7 @@ end
 
 function physics.update()
 	--TODO
+	applyVelocities()
 
 end
 
@@ -30,6 +31,24 @@ function physics.newObject(ID,x,y,image,scaling)
 	objectIDs[#objectIDs+1] = {#objectIDs+1,ID}
 
 	if not(objects[ID] == nil) then print("Overwritten an existing object") end
+
+end
+
+function physics.push(ID,xVel,yVel)
+
+	objects[ID][4][1] = objects[ID][4][1] + xVel
+	objects[ID][4][2] = objects[ID][4][2] + yVel
+
+end
+
+function applyVelocities()
+
+	if #objectIDs > 0 then
+		for i = 1, #objectIDs do
+			objects[objectIDs[i][2]][3][1] = objects[objectIDs[i][2]][3][1] + objects[objectIDs[i][2]][4][1]
+			objects[objectIDs[i][2]][3][2] = objects[objectIDs[i][2]][3][2] + objects[objectIDs[i][2]][4][2]
+		end
+	end
 
 end
 

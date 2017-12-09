@@ -32,6 +32,7 @@ function love.load()
 	lsl.audio.fade(1,"out")
 
 	lsl.physics.newObject("ball",5,5,"coal.png",0.1)
+	lsl.physics.push("ball",0.01,0)
 
 end
 
