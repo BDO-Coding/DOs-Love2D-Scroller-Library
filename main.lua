@@ -5,7 +5,7 @@ local lsl = require "lsl"
 --Loads
 function love.load()
 
-	lsl.scroll.setup({tilemap = "tilemap.png", tileSize = 10, mapLength = 20, mapHeight = 10, maxZoom = 10, cameraSpeed = 10, zoomSpeed = 0.3})
+	lsl.scroll.setup({tilemap = "tilemap.png", tileSize = 10, mapLength = 10, mapHeight = 10, maxZoom = 10, cameraSpeed = 5, zoomSpeed = 0.1})
 	lsl.physics.setup({})
 
 	lsl.load()

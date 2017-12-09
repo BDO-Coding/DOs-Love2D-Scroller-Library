@@ -70,7 +70,7 @@ function scroll.load()
 
 	mapLength,mapHeight = 10,10
 	zoom = 1
-	cameraX,cameraY = 0,0
+	cameraX,cameraY = zoom  * 1200,zoom * 750
 	zoomOffset = 0
 
 	map = {}
@@ -86,7 +86,17 @@ end
 
 function scroll.draw()
 
+	offX = zoom  * 1200 * -1
+	offY = zoom  * 750 * -1
+
+	love.graphics.scale(zoom)
+	love.graphics.translate(offX,offY)
+
+
 	drawTiles()
+
+	love.graphics.setColor(0,0,0)
+	love.graphics.print(zoom,0,0)
 
 end
 
@@ -112,9 +122,9 @@ function drawScrollingObject(object)
 	scaling = object[6]
 
 	if quad == false then
-		love.graphics.draw(image,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling)
+		love.graphics.draw(image,applyScroll(x,"x"),applyScroll(y,"y"),0,scaling,scaling)
 	else
-		love.graphics.draw(image,quad,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling)
+		love.graphics.draw(image,quad,applyScroll(x,"x"),applyScroll(y,"y"),0,1,1)
 	end
 
 end
@@ -156,11 +166,11 @@ function drawTiles()
 	for x=1,mapLength do
 		for y=1, mapHeight do
 			if map[x][y][1] == false then
-				love.graphics.draw(tilemap,map[x][y][2],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom)
+				love.graphics.draw(tilemap,map[x][y][2],applyScroll(x,"x"),applyScroll(y,"y"),0,1,1)
 			else
 				customImage = map[x][y][1]
 				scaling = tileSize/customImage:getWidth()
-				love.graphics.draw(customImage,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling)
+				love.graphics.draw(customImage,applyScroll(x,"x"),applyScroll(y,"y"),0,scaling,scaling)
 			end
 		end
 	end
@@ -177,7 +187,7 @@ function applyScroll(num,axis) --num is x position in tiles
 		print("Arguement 2 for applyScroll() must be \"x\" or \"y\"")
 	end
 
-	return num*zoom*tileSize+camera
+	return num*tileSize+camera
 
 end
 
