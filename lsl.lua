@@ -35,11 +35,11 @@ function lsl.update()
 
 	lsl.input.update()
 	lsl.audio.update()
-	lsl.physics.update()
 	lsl.ui.update()
 
 	if(inGame==true and menuPage == runPage)then
 		lsl.scroll.update()
+		lsl.physics.update()
 	end
 
 end
