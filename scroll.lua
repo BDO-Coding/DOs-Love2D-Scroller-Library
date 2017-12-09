@@ -82,20 +82,7 @@ end
 
 function scroll.draw()
 
-	love.graphics.setBackgroundColor(255, 255, 255)
-	love.graphics.setColor(255,255,255)
-
-	for x=1,mapLength do
-		for y=1, mapHeight do
-			if map[x][y][1] == false then
-				love.graphics.draw(tilemap,map[x][y][2],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom,(tileSize*zoom)/2,(tileSize*zoom)/2)
-			else
-				customImage = map[x][y][1]
-				scaling = tileSize/customImage:getWidth()
-				love.graphics.draw(customImage,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling,(customImage:getWidth()*zoom)/2,(customImage:getWidth()*zoom)/2)
-			end
-		end
-	end
+	drawTiles()
 
 end
 
@@ -139,6 +126,25 @@ function love.wheelmoved(x, y)
 	    elseif y < 0 then
 	        zoom = zoom - zoomSpeed
 	 	end
+	end
+
+end
+
+function drawTiles()
+
+	love.graphics.setBackgroundColor(255, 255, 255)
+	love.graphics.setColor(255,255,255)
+
+	for x=1,mapLength do
+		for y=1, mapHeight do
+			if map[x][y][1] == false then
+				love.graphics.draw(tilemap,map[x][y][2],applyScroll(x,"x"),applyScroll(y,"y"),0,zoom,zoom,(tileSize*zoom)/2,(tileSize*zoom)/2)
+			else
+				customImage = map[x][y][1]
+				scaling = tileSize/customImage:getWidth()
+				love.graphics.draw(customImage,applyScroll(x,"x"),applyScroll(y,"y"),0,zoom*scaling,zoom*scaling,(customImage:getWidth()*zoom)/2,(customImage:getWidth()*zoom)/2)
+			end
+		end
 	end
 
 end

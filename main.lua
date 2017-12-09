@@ -30,6 +30,8 @@ function love.load()
 	lsl.audio.play(1)
 	lsl.audio.fade(1,"out")
 
+	lsl.physics.newObject("ball","I am a ball")
+
 end
 
 --Updates
