@@ -1,5 +1,6 @@
 local ui = {}
 
+local font = love.graphics.getFont()
 local utf8 = require("utf8")
 
 function ui.load()
@@ -65,13 +66,10 @@ function drawButton()
 		    if buttonArray[i][12] == "inputText" or buttonArray[i][12] == "typing" then
 		    	love.graphics.print(buttonArray[i][8], buttonArray[i][1]+buttonArray[i][9]+10, buttonArray[i][2]+buttonArray[i][10]+10, 0, 3, 3)
 		    	love.graphics.setColor(255, 255, 255)
-		    	love.graphics.rectangle("fill", buttonArray[i][1]+string.len(buttonArray[i][8])*23, buttonArray[i][2]+5, -string.len(buttonArray[i][8])*23+buttonArray[i][3]-5, buttonArray[i][4]-10)
+		    	love.graphics.rectangle("fill", buttonArray[i][1]+font:getWidth(buttonArray[i][8])*3+10, buttonArray[i][2]+5, -font:getWidth(buttonArray[i][8])*3-10+buttonArray[i][3]-5, buttonArray[i][4]-10)
 		    else
-			    local spaces = 0
-				for i in string.gfind(buttonArray[i][8], " ") do
-					spaces = spaces + 1
-				end --NOTE : Text centralisation doesn't work great so use textx and texty to get it right vv
-			    love.graphics.print(buttonArray[i][8], buttonArray[i][1]+buttonArray[i][3]/2-string.len(buttonArray[i][8])*11-5+spaces*10+buttonArray[i][9], buttonArray[i][2]+buttonArray[i][4]/2-20+buttonArray[i][10], 0, 3, 3)
+			    --NOTE : Text centralisation doesn't work amazingly so use textx and texty to get it right vv
+			    love.graphics.print(buttonArray[i][8], buttonArray[i][1]+buttonArray[i][3]/2-font:getWidth(buttonArray[i][8])*1.5-5+buttonArray[i][9], buttonArray[i][2]+buttonArray[i][4]/2-20+buttonArray[i][10], 0, 3, 3)
 			end
 		end
 	end
@@ -90,14 +88,18 @@ function drawInputText()
 				end
 	    		lineTimer = lineTimer - 0.05
 	    		if lineTimer <= 0 then
-					love.graphics.print("|",buttonArray[i][1]+string.len(buttonArray[i][8])*22+string.len(buttonArray[i][13])*23,buttonArray[i][2]+1, 0, 3.6, 3.63)
+	    			if buttonArray[i][13] == "" then
+						love.graphics.print("|",buttonArray[i][1]+string.len(buttonArray[i][8])*22+font:getWidth(buttonArray[i][13])*3+string.len(buttonArray[i][13])*5-4,buttonArray[i][2]+1, 0, 3.6, 3.63)
+					else
+						love.graphics.print("|",buttonArray[i][1]+string.len(buttonArray[i][8])*22+font:getWidth(buttonArray[i][13])*3+string.len(buttonArray[i][13])*5-10,buttonArray[i][2]+1, 0, 3.6, 3.63)
+					end
 				end
 				if lineTimer <= -1 then
 					lineTimer = 1
 				end
 			end
 			if buttonArray[i][12] == "inputText" or buttonArray[i][12] == "typing" then
-				love.graphics.print(buttonArray[i][13],buttonArray[i][1]+string.len(buttonArray[i][8])*23+1,buttonArray[i][2]+7, 0, 3.6, 3.63)
+				love.graphics.print(buttonArray[i][13],buttonArray[i][1]+font:getWidth(buttonArray[i][8])*3+10,buttonArray[i][2]+10, 0, 3.6, 3.63)
 			end
 		end
 	end
@@ -136,7 +138,7 @@ end
 function love.textinput(text)
 
 	for i=1,#buttonArray do
-		if buttonArray[i][12] == "typing" then
+		if buttonArray[i][12] == "typing" and buttonArray[i][1]+string.len(buttonArray[i][8])*22+font:getWidth(buttonArray[i][13])*3+string.len(buttonArray[i][13])*5-4 < buttonArray[i][1]+font:getWidth(buttonArray[i][8])*3+10-font:getWidth(buttonArray[i][8])*3-10+buttonArray[i][3]-5 then
 			buttonArray[i][13] = buttonArray[i][13] .. text
 		end
 	end
@@ -202,8 +204,8 @@ function ui.getPage()
 end
 
 function ui.getInputButtonText(ID)
-	if buttonArray[ID][13] ~= nil then
-		return buttonArray[ID][13]
+	if buttonArray[ID+1][13] ~= nil then
+		return buttonArray[ID+1][13]
 	else
 		return nil
 	end

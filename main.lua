@@ -39,7 +39,7 @@ end
 function love.update()
 	lsl.update()
 	lsl.ui.inGameMenu("escape","gameMenu1")
-	print(lsl.ui.getInputButtonText(3))
+	print(lsl.ui.getInputButtonText(4))
 end
 
 --Drawing
