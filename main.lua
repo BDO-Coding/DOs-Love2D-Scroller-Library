@@ -5,8 +5,8 @@ local lsl = require "lsl"
 --Loads
 function love.load()
 
-	lsl.scroll.setup({tilemap = "tilemap.png", tileSize = 10, mapLength = 10, mapHeight = 10, maxZoom = 10, cameraSpeed = 1, zoomSpeed = 0.1})
-	lsl.physics.setup({})
+	lsl.scroll.setup({tilemap = "tilemap.png", tileSize = 10, mapLength = 10, mapHeight = 10, maxZoom = 10, cameraSpeed = 5, zoomSpeed = 0.1})
+	lsl.physics.setup({friction =  0.001, zero = 0.01})
 
 	lsl.load()
 
@@ -34,7 +34,8 @@ function love.load()
 	lsl.audio.play(1)
 
 	lsl.physics.newObject("ball",5,5,"coal.png",0.1)
-	lsl.physics.push("ball",0.01,0)
+	lsl.physics.setAcc("ball",0.01,0)
+
 
 end
 
@@ -42,9 +43,8 @@ end
 function love.update()
 	lsl.update()
 	lsl.ui.inGameMenu("escape","gameMenu1")
-	print(lsl.ui.getInputButtonText(4))
+	--print(lsl.ui.getInputButtonText(4))
 	--lsl.audio.volume(1,lsl.ui.getInputButtonText(7))
-
 end
 
 --Drawing

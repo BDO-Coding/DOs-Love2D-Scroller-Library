@@ -113,8 +113,8 @@ end
 function drawScrollingObject(object)
 
 	x,y = object[3][1], object[3][2]
-	image,quad = object[5][1], object[5][2]
-	scaling = object[6]
+	image,quad = object[6][1], object[6][2]
+	scaling = object[7]
 
 	if quad == false then
 		love.graphics.draw(image,applyScroll(x,"x"),applyScroll(y,"y"),0,scaling,scaling)
