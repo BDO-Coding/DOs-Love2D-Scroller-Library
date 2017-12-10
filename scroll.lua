@@ -70,7 +70,7 @@ function scroll.load()
 
 	mapLength,mapHeight = 10,10
 	zoom = 1
-	cameraX,cameraY = zoom  * 1200,zoom * 750
+	cameraX,cameraY = -50,-50 --start in middle of map
 	zoomOffset = 0
 
 	map = {}
@@ -82,21 +82,16 @@ function scroll.load()
 		end
 	end
 
+	centreX,centreY = 600,300
+
 end
 
 function scroll.draw()
 
-	offX = zoom  * 1200 * -1
-	offY = zoom  * 750 * -1
-
+	love.graphics.translate(centreX,centreY)
 	love.graphics.scale(zoom)
-	love.graphics.translate(offX,offY)
-
 
 	drawTiles()
-
-	love.graphics.setColor(0,0,0)
-	love.graphics.print(zoom,0,0)
 
 end
 

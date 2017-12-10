@@ -89,6 +89,25 @@ ui.inGameMenu(key,inGameMenuPage)
 
 ui.getInputButtonText(ID)
 	ID = the button you want to find the input text of, find the ID by counting down from the button you create first until you find the button you are looking for, the number you counted to is the ID
+	
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+-----UI Functions-----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+physics.setup(args)
+	MUST BE CALLED BEFOR lsl.load()
+	args components:
+		friction = byhow much you want each object to slow down over time
+
+physics.newObject(ID,x,y,image,scaling)
+	ID = the ID of your new object - this can (and should) be strings
+	x,y = the initial x and y positions of your object (it will start with 0 velocity)
+	image = the image you want to use for your object
+	scaling = what you need to multiply the height or width of your image by to get the tileSize
+	
+physics.push(ID,xVel,yVel)
+	ID = the ID of your new object - this can (and should) be strings
+	xVel,yVel = the amount of velocity you want to be added to each object
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 ------Data Types------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,3 +115,7 @@ ui.getInputButtonText(ID)
 
 tiledata:
 	{customImage,quad}
+object:
+	{ID, doesScroll?, {x,y}, {xVel,yVel}, {image,quad}, scaling}
+track:
+	{audioSource,fadeDir}
