@@ -4,6 +4,9 @@ function scroll.setup(args)
 
 	hasBeenSetup = true
 
+	zoomToMouse = false
+	if args.zoomToMouse then zoomToMouse = args.zoomToMouse end
+
 	if not(args.tilemap or args.mapLength or args.mapHeight or tileSize) then
 		print("Missing arguements for scroll.setup()") 
 	end
@@ -55,10 +58,10 @@ function scroll.createTiledata(args)
 
 end
 
-function scroll.mouseCoordsToMap(x,y)
+function scroll.mouseCoordsToMap(x,y) --MUCH LESS BROKEN
 
-	tileX = math.floor(((x-cameraX)/(tileSize*zoom)))
-	tileY = math.floor(((y-cameraY)/(tileSize*zoom)))
+	tileX = math.floor((x-(zoom*cameraX)-centreX)/(tileSize*zoom))
+	tileY = math.floor((y-(zoom*cameraY)-centreY)/(tileSize*zoom))
 
 	return tileX,tileY
 
@@ -100,6 +103,13 @@ function scroll.update()
 
 	checkForKeyPresses()
 	capZoom()
+
+	if zoomToMouse == true then
+
+		centreX = love.mouse.getX()
+		centreY = love.mouse.getY()
+
+	end
 
 end
 
