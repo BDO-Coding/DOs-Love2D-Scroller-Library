@@ -27,6 +27,8 @@ function physics.draw()
 
 	love.graphics.setColor(0,0,0)
 
+	love.graphics.pop()
+
 end
 
 function physics.setup(args)

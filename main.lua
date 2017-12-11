@@ -34,7 +34,7 @@ function love.load()
 	lsl.audio.play(1)
 
 	lsl.physics.newObject("ball",5,5,"coal.png",0.1)
-	lsl.physics.setAcc("ball",0.01,0)
+	lsl.physics.setVel("ball",0.2,0)
 
 
 end

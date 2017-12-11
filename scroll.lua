@@ -91,11 +91,12 @@ end
 
 function scroll.draw()
 
+	love.graphics.push()
+
 	love.graphics.translate(centreX,centreY)
 	love.graphics.scale(zoom)
 
 	drawTiles()
-
 end
 
 
