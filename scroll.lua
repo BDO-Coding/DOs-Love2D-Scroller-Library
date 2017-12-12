@@ -31,6 +31,13 @@ function scroll.setup(args)
 
 end
 
+function scroll.setMouseHovering(args)
+
+	doMouseHovering = args.set
+	hoverColor = args.color
+
+end
+
 function scroll.setTile(x,y,tiledata)
 
 	if not(x<1 or x>mapLength) and not(y<1 or y>mapHeight) then
@@ -54,7 +61,7 @@ function scroll.createTiledata(args)
 		customImage:setFilter(minFilter,maxFilter,anstropy)
 	end
 
-	return {customImage,quad}
+	return {customImage,quad,{false,false}}
 
 end
 
@@ -68,6 +75,11 @@ function scroll.mouseCoordsToMap(x,y) --MUCH LESS BROKEN
 end
 
 function scroll.load()
+
+	a = "test"
+	lastSelected = {1,1}
+	doMouseHovering = false
+	hoverColor = {0,0,0}
 
 	if not(hasBeenSetup == true) then print("scroll.setup() must be called before lsl.load()") end
 
@@ -105,12 +117,14 @@ function scroll.update()
 	checkForKeyPresses()
 	capZoom()
 
-	if zoomToMouse == true then
+	if zoomToMouse == true then --WIP
 
 		centreX = love.mouse.getX()
 		centreY = love.mouse.getY()
 
 	end
+
+	doMouseSelection()
 
 end
 
@@ -118,6 +132,18 @@ function capZoom()
 
 	if zoom>maxZoom then zoom = maxZoom end
 	if zoom<minZoom then zoom = minZoom end
+
+end
+
+function doMouseSelection()
+
+	map[lastSelected[1]][lastSelected[2]][3][1] = false
+	x,y = scroll.mouseCoordsToMap(love.mouse.getX(),love.mouse.getY())
+	if x >= 1 and x <= mapLength and y >= 1 and y <= mapHeight then
+		map[x][y][3][1] = true
+		lastSelected = {x,y}
+	end
+	
 
 end
 
@@ -139,7 +165,7 @@ function createDefaultTiledata()
 
 	quad = love.graphics.newQuad(0,0,tileSize,tileSize,tilemap:getWidth(),tilemap:getHeight())
 
-	return {false,quad} --customImage, quad
+	return {false,quad,{false,false}} --customImage, quad
 
 end
 
@@ -167,10 +193,18 @@ end
 function drawTiles()
 
 	love.graphics.setBackgroundColor(255, 255, 255)
-	love.graphics.setColor(255,255,255)
 
 	for x=1,mapLength do
 		for y=1, mapHeight do
+
+			love.graphics.setColor(255,255,255)
+
+			if doMouseHovering == true then
+				if map[x][y][3][1] == true then
+					love.graphics.setColor(hoverColor[1],hoverColor[2],hoverColor[3])
+				end
+			end
+
 			if map[x][y][1] == false then
 				love.graphics.draw(tilemap,map[x][y][2],applyScroll(x,"x"),applyScroll(y,"y"),0,1,1)
 			else
@@ -186,7 +220,7 @@ end
 function applyScroll(num,axis) --num is x position in tiles
 	
 	if axis == "x" then 
-		camera = cameraX 
+		camera = cameraX
 	elseif axis == "y" then 
 		camera = cameraY 
 	else 

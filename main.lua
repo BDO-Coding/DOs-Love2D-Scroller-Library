@@ -36,6 +36,8 @@ function love.load()
 	lsl.physics.newObject("ball",5,5,"coal.png",0.1)
 	lsl.physics.setVel("ball",0.2,0)
 
+	lsl.scroll.setMouseHovering({set = true,color = {50,50,50}})
+
 
 end
 
@@ -46,25 +48,11 @@ function love.update()
 	--print(lsl.ui.getInputButtonText(4))
 	--lsl.audio.volume(1,lsl.ui.getInputButtonText(7))
 	--lsl.input.setClickListener({ID = 1,click = 1, event = "printClickTile"})
-	for x=1,mapLength do
-		for y=1, mapHeight do
-			lsl.scroll.setTile(x,y,lsl.scroll.createTiledata({x=0,y=0})) --was a tool to help get the new selection right - don't need it any more but looks cool
-		end
-	end
-	printClickTile(love.mouse.getX(),love.mouse.getY())
 end
 
 --Drawing
 function love.draw()
 	lsl.draw()
-end
-
-function printClickTile(x,y)
-
-	if inGame == true then
-		x,y = lsl.scroll.mouseCoordsToMap(x,y)
-		lsl.scroll.setTile(x,y,lsl.scroll.createTiledata({customImage = "testCustomTile.png",minFilter = "linear",maxFilter = "linear", anstropy = 10}))
-	end
 end
 
 --

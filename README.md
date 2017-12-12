@@ -114,7 +114,7 @@ physics.push(ID,xVel,yVel)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 tiledata:
-	{customImage,quad}
+	{customImage,quad,selecttionData}
 object:
 	{ID, doesScroll?, {x,y}, {xVel,yVel}, {image,quad}, scaling}
 track:
