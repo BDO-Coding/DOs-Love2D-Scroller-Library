@@ -119,3 +119,7 @@ object:
 	{ID, doesScroll?, {x,y}, {xVel,yVel}, {image,quad}, scaling}
 track:
 	{audioSource,fadeDir}
+
+
+	Danny to work on physics
+	Ori to work on slider button and inventory with items
