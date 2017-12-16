@@ -147,11 +147,25 @@ function doMouseSelection()
 
 end
 
+function mouseCoordsToExactMap(x,y) --MUCH LESS BROKEN
+
+	tileX = (x-(zoom*cameraX)-centreX)/(tileSize*zoom)
+	tileY = (y-(zoom*cameraY)-centreY)/(tileSize*zoom)
+
+	return tileX,tileY
+
+end
+
 function drawScrollingObject(object)
 
 	x,y = object[3][1], object[3][2]
 	image,quad = object[6][1], object[6][2]
 	scaling = object[7]
+
+	if object[8][1] == true then
+		love.graphics.setColor(0,0,0) --for tsting of object selection
+		print("done")
+	end
 
 	if quad == false then
 		love.graphics.draw(image,applyScroll(x,"x"),applyScroll(y,"y"),0,scaling,scaling)

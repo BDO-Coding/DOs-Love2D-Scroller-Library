@@ -2,7 +2,7 @@ local physics = {}
 
 function physics.load()
 
-	objects = {} --template: ID, doesScroll?, {x,y}, {xVel,yVel},{xAcc,yAcc},{image,quad}, scaling
+	objects = {} --template: ID, doesScroll?, {x,y}, {xVel,yVel},{xAcc,yAcc},{image,quad}, scaling, {mouseHovering}
 	objectIDs = {}
 
 end
@@ -12,6 +12,7 @@ function physics.update()
 	applyAccelerations()
 	applyVelocities()
 	applyFrictions()
+	checkForMouseHovering()
 
 end
 
@@ -52,7 +53,7 @@ function physics.newObject(ID,x,y,image,scaling)
 
 	if not(objects[ID] == nil) then print("Overwritten an existing object") end
 
-	objects[ID] = {ID,true,{x,y},{0,0},{0,0},{love.graphics.newImage(image),false},scaling}
+	objects[ID] = {ID,true,{x,y},{0,0},{0,0},{love.graphics.newImage(image),false},scaling,{false}}
 	objectIDs[#objectIDs+1] = {#objectIDs+1,ID}
 
 end
@@ -123,6 +124,30 @@ function applyFrictions()
 
 		end
 	end
+end
+
+function checkForMouseHovering()
+
+	x,y = love.mouse.getX(),love.mouse.getY()
+	x,y = mouseCoordsToExactMap(x,y)
+
+	if #objectIDs > 0 then
+		for i = 1, #objectIDs do
+
+			ox,oy = objects[objectIDs[i][2]][3][1],objects[objectIDs[i][2]][3][2]
+			oimage,oscaling = objects[objectIDs[i][2]][6][1],objects[objectIDs[i][2]][7]
+			realw,realh = oimage:getWidth()*oscaling,oimage:getHeight()*oscaling
+			ow,oh = ox+(realw/tileSize),oy+(realh/tileSize)
+
+			if x >= ox and y >= oy and x <= ow and y <= oh then
+				objects[objectIDs[i][2]][8][1] = true
+			else
+				objects[objectIDs[i][2]][8][1] = false
+			end
+
+		end
+	end
+
 end
 
 function applyVelFriction(num)

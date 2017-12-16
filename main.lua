@@ -6,7 +6,7 @@ local lsl = require "lsl"
 function love.load()
 
 	lsl.scroll.setup({zoomToMouse = false, tilemap = "tilemap.png", tileSize = 10, mapLength = 10, mapHeight = 10, maxZoom = 10, cameraSpeed = 5, zoomSpeed = 0.1})
-	lsl.physics.setup({friction =  0.001, zero = 0.01,drawHitboxes = true})
+	lsl.physics.setup({friction =  0.001, zero = 0.01,drawHitboxes = false})
 
 	lsl.load()
 
@@ -34,9 +34,9 @@ function love.load()
 	lsl.audio.play(1)
 
 	lsl.physics.newObject("ball",5,5,"coal.png",0.1)
-	lsl.physics.setVel("ball",0.2,0)
+	--lsl.physics.setVel("ball",0.2,0)
 
-	lsl.scroll.setMouseHovering({set = true,color = {50,50,50}})
+	lsl.scroll.setMouseHovering({set = false,color = {50,50,50}})
 
 
 end
