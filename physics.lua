@@ -27,7 +27,12 @@ function physics.draw()
 
 	love.graphics.setColor(0,0,0)
 
+	if drawHitboxes == true then
+		drawAllHitboxes()
+	end
+
 	love.graphics.pop()
+
 
 end
 
@@ -35,9 +40,11 @@ function physics.setup(args)
 
 	friction = 0.001
 	zero = 0.01
+	drawHitboxes = false
 
 	if args.friction then friction = args.friction end
 	if args.zero then zero = args.zero end
+	if args.drawHitboxes then drawHitboxes = args.drawHitboxes end
 
 end
 
@@ -135,6 +142,24 @@ end
 function round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
   return math.floor(num * mult + 0.5) / mult
+end
+
+function drawAllHitboxes()
+
+	if #objectIDs > 0 then
+		for i = 1, #objectIDs do
+
+			image = objects[objectIDs[i][2]][6][1]
+			x,y = objects[objectIDs[i][2]][3][1],objects[objectIDs[i][2]][3][2]
+			w,h = image:getWidth()*objects[objectIDs[i][2]][7], image:getHeight()*objects[objectIDs[i][2]][7]
+
+			love.graphics.rectangle("line",applyScroll(x,"x"),applyScroll(y,"y"),w,h)
+			--objects[objectIDs[i][2]][4][1] = applyVelFriction(objects[objectIDs[i][2]][4][1])
+			--objects[objectIDs[i][2]][4][2] = applyVelFriction(objects[objectIDs[i][2]][4][2])
+
+		end
+	end
+
 end
 
 return physics

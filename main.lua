@@ -6,7 +6,7 @@ local lsl = require "lsl"
 function love.load()
 
 	lsl.scroll.setup({zoomToMouse = false, tilemap = "tilemap.png", tileSize = 10, mapLength = 10, mapHeight = 10, maxZoom = 10, cameraSpeed = 5, zoomSpeed = 0.1})
-	lsl.physics.setup({friction =  0.001, zero = 0.01})
+	lsl.physics.setup({friction =  0.001, zero = 0.01,drawHitboxes = true})
 
 	lsl.load()
 
