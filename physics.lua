@@ -2,7 +2,7 @@ local physics = {}
 
 function physics.load()
 
-	objects = {} --template: ID, doesScroll?, {x,y}, {xVel,yVel},{xAcc,yAcc},{image,quad}, scaling, {mouseHovering}
+	objects = {} --template: ID, doesScroll?, {x,y}, {xVel,yVel},{xAcc,yAcc},{image,quad}, scaling, {mouseHovering,{isColliding,collisionX,collisionY,collisionWidth,CollisionHeight}}
 	objectIDs = {}
 
 end
@@ -13,6 +13,7 @@ function physics.update()
 	applyVelocities()
 	applyFrictions()
 	checkForMouseHovering()
+	checkForObjectCollision()
 
 end
 
@@ -53,7 +54,7 @@ function physics.newObject(ID,x,y,image,scaling)
 
 	if not(objects[ID] == nil) then print("Overwritten an existing object") end
 
-	objects[ID] = {ID,true,{x,y},{0,0},{0,0},{love.graphics.newImage(image),false},scaling,{false}}
+	objects[ID] = {ID,true,{x,y},{0,0},{0,0},{love.graphics.newImage(image),false},scaling,{false,{false,0,0,0,0}}}
 	objectIDs[#objectIDs+1] = {#objectIDs+1,ID}
 
 end
@@ -103,6 +104,35 @@ function applyAccelerations()
 
 end
 
+function checkForObjectCollision()
+
+	if #objectIDs > 0 then
+		for subject = 1, #objectIDs do
+			objects[objectIDs[subject][2]][8][2][1] = false
+			for object = 1, #objectIDs do
+				if not(object==subject) then
+
+					--CAN ALSO RETURN THE RECTANGLE OF INTERSECTION TO DRAW
+					--SEE ONENOTE
+
+					sminX,smaxX = objects[objectIDs[subject][2]][3][1], objects[objectIDs[subject][2]][3][1]+(objects[objectIDs[subject][2]][6][1]:getWidth()*objects[objectIDs[subject][2]][7]/tileSize)
+					sminY,smaxY = objects[objectIDs[subject][2]][3][2], objects[objectIDs[subject][2]][3][2]+(objects[objectIDs[subject][2]][6][1]:getHeight()*objects[objectIDs[subject][2]][7]/tileSize)
+					ominX,omaxX = objects[objectIDs[object][2]][3][1], objects[objectIDs[object][2]][3][1]+(objects[objectIDs[object][2]][6][1]:getWidth()*objects[objectIDs[object][2]][7]/tileSize)
+					ominY,omaxY = objects[objectIDs[object][2]][3][2], objects[objectIDs[object][2]][3][2]+(objects[objectIDs[object][2]][6][1]:getHeight()*objects[objectIDs[object][2]][7]/tileSize)
+
+					if ((sminX > ominX and sminX < omaxX) or (smaxX > ominX and smaxX < omaxX)) and ((sminY > ominY and sminY < omaxY) or (smaxY > ominY and smaxY < omaxY)) then
+
+						objects[objectIDs[subject][2]][8][2][1] = object
+
+					end
+
+				end
+			end	
+		end
+	end
+
+end
+
 function applyVelocities()
 
 	if #objectIDs > 0 then
@@ -134,19 +164,27 @@ function checkForMouseHovering()
 	if #objectIDs > 0 then
 		for i = 1, #objectIDs do
 
-			ox,oy = objects[objectIDs[i][2]][3][1],objects[objectIDs[i][2]][3][2]
-			oimage,oscaling = objects[objectIDs[i][2]][6][1],objects[objectIDs[i][2]][7]
-			realw,realh = oimage:getWidth()*oscaling,oimage:getHeight()*oscaling
-			ow,oh = ox+(realw/tileSize),oy+(realh/tileSize)
-
-			if x >= ox and y >= oy and x <= ow and y <= oh then
-				objects[objectIDs[i][2]][8][1] = true
-			else
-				objects[objectIDs[i][2]][8][1] = false
-			end
+				objects[objectIDs[i][2]][8][1] = checkForPointCollision({x,y},objectIDs[i][2])
 
 		end
 	end
+
+end
+
+function checkForPointCollision(point,objectID)
+
+	x,y = point[1],point[2]
+
+		ox,oy = objects[objectID][3][1],objects[objectID][3][2]
+		oimage,oscaling = objects[objectID][6][1],objects[objectID][7]
+		realw,realh = oimage:getWidth()*oscaling,oimage:getHeight()*oscaling
+		ow,oh = ox+(realw/tileSize),oy+(realh/tileSize)
+
+		if x >= ox and y >= oy and x <= ow and y <= oh then
+			return true
+		else
+			return false
+		end
 
 end
 
