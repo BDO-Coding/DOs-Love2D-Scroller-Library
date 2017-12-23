@@ -33,11 +33,11 @@ function love.load()
 	lsl.audio.volume(1,0.2)
 	lsl.audio.play(1)
 
-	lsl.physics.newObject("ball",5,5,"coal.png",0.1)
-	--lsl.physics.setVel("ball",0.2,0)
+	lsl.physics.newObject("ball1",5,5,"coal.png",0.1)
+	lsl.physics.newObject("ball2",5.5,5.5,"coal.png",0.1)
+	--lsl.physics.setAcc("ball1",0.02,0)
 
 	lsl.scroll.setMouseHovering({set = false,color = {50,50,50}})
-
 
 end
 
@@ -48,6 +48,8 @@ function love.update()
 	--print(lsl.ui.getInputButtonText(4))
 	--lsl.audio.volume(1,lsl.ui.getInputButtonText(7))
 	--lsl.input.setClickListener({ID = 1,click = 1, event = "printClickTile"})
+	x,y = lsl.scroll.mouseCoordsToExactMap(love.mouse.getX(),love.mouse.getY())
+	lsl.physics.setPos("ball1",x,y)
 end
 
 --Drawing

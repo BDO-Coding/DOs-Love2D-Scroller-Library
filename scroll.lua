@@ -65,7 +65,7 @@ function scroll.createTiledata(args)
 
 end
 
-function scroll.mouseCoordsToMap(x,y) --MUCH LESS BROKEN
+function scroll.mouseCoordsToMap(x,y)
 
 	tileX = math.floor((x-(zoom*cameraX)-centreX)/(tileSize*zoom))
 	tileY = math.floor((y-(zoom*cameraY)-centreY)/(tileSize*zoom))
@@ -101,6 +101,15 @@ function scroll.load()
 
 end
 
+function scroll.mouseCoordsToExactMap(x,y) 
+
+	tileX = (x-(zoom*cameraX)-centreX)/(tileSize*zoom)
+	tileY = (y-(zoom*cameraY)-centreY)/(tileSize*zoom)
+
+	return tileX,tileY
+
+end
+
 function scroll.draw()
 
 	love.graphics.push()
@@ -125,6 +134,20 @@ function scroll.update()
 	end
 
 	doMouseSelection()
+
+end
+
+function scroll.mapCoordsToScreen(num,axis) --num is x position in tiles
+	
+	if axis == "x" then 
+		camera = cameraX
+	elseif axis == "y" then 
+		camera = cameraY 
+	else 
+		print("Arguement 2 for applyScroll() must be \"x\" or \"y\"")
+	end
+
+	return num*tileSize+camera
 
 end
 
@@ -163,7 +186,7 @@ function drawScrollingObject(object)
 	scaling = object[7]
 
 	if object[8][1] == true then
-		love.graphics.setColor(0,0,0) --for tsting of object selection
+		--love.graphics.setColor(0,0,0) --for tsting of object selection
 		print("done")
 	end
 

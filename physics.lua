@@ -2,7 +2,7 @@ local physics = {}
 
 function physics.load()
 
-	objects = {} --template: ID, doesScroll?, {x,y}, {xVel,yVel},{xAcc,yAcc},{image,quad}, scaling, {mouseHovering,{isColliding,collisionX,collisionY,collisionWidth,CollisionHeight}}
+	objects = {} --template: ID, doesScroll?, {x,y}, {xVel,yVel},{xAcc,yAcc},{image,quad}, scaling, {mouseHovering,{isColliding,collisionX,collisionY,collisionWidth,collisionHeight}}
 	objectIDs = {}
 
 end
@@ -21,9 +21,21 @@ function physics.draw()
 
 	if #objectIDs > 0 then
 		for i = 1, #objectIDs do
+
+			love.graphics.setColor(255,255,255)
+
+
 			if objects[objectIDs[i][2]][2] == true then
 				drawScrollingObject(objects[objectIDs[i][2]])
 			end
+
+			if not(objects[objectIDs[i][2]][8][2][1] == false) then
+
+				love.graphics.setColor(255,0,0)
+				love.graphics.rectangle("fill",applyScroll(objects[objectIDs[i][2]][8][2][2],"x"),applyScroll(objects[objectIDs[i][2]][8][2][3],"y"),objects[objectIDs[i][2]][8][2][4],objects[objectIDs[i][2]][8][2][5])
+
+			end
+
 		end
 	end
 
@@ -123,6 +135,30 @@ function checkForObjectCollision()
 					if ((sminX > ominX and sminX < omaxX) or (smaxX > ominX and smaxX < omaxX)) and ((sminY > ominY and sminY < omaxY) or (smaxY > ominY and smaxY < omaxY)) then
 
 						objects[objectIDs[subject][2]][8][2][1] = object
+
+						if (sminX > ominX and sminX < omaxX) then 
+							objects[objectIDs[subject][2]][8][2][2] = sminX 
+							objects[objectIDs[subject][2]][8][2][4] = omaxX - sminX
+
+						--	print(1)
+
+						end
+
+						if (smaxX > ominX and smaxX < omaxX) then 
+							objects[objectIDs[subject][2]][8][2][2] = ominX 
+							objects[objectIDs[subject][2]][8][2][4] = smaxX - ominX
+						end
+
+
+						if (sminY > ominY and sminY < omaxY) then 
+							objects[objectIDs[subject][2]][8][2][3] = sminY 
+							objects[objectIDs[subject][2]][8][2][5] = omaxY - sminY
+						end
+
+						if (smaxY > ominY and smaxY < omaxY) then 
+							objects[objectIDs[subject][2]][8][2][3] = ominY 
+							objects[objectIDs[subject][2]][8][2][5] = smaxY - ominY
+						end
 
 					end
 
