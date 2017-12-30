@@ -138,26 +138,24 @@ function checkForObjectCollision()
 
 						if (sminX > ominX and sminX < omaxX) then 
 							objects[objectIDs[subject][2]][8][2][2] = sminX 
-							objects[objectIDs[subject][2]][8][2][4] = omaxX - sminX
-
-						--	print(1)
+							objects[objectIDs[subject][2]][8][2][4] = (omaxX - sminX)*tileSize
 
 						end
 
 						if (smaxX > ominX and smaxX < omaxX) then 
 							objects[objectIDs[subject][2]][8][2][2] = ominX 
-							objects[objectIDs[subject][2]][8][2][4] = smaxX - ominX
+							objects[objectIDs[subject][2]][8][2][4] = (smaxX - ominX)*tileSize
 						end
 
 
 						if (sminY > ominY and sminY < omaxY) then 
 							objects[objectIDs[subject][2]][8][2][3] = sminY 
-							objects[objectIDs[subject][2]][8][2][5] = omaxY - sminY
+							objects[objectIDs[subject][2]][8][2][5] = (omaxY - sminY)*tileSize
 						end
 
 						if (smaxY > ominY and smaxY < omaxY) then 
 							objects[objectIDs[subject][2]][8][2][3] = ominY 
-							objects[objectIDs[subject][2]][8][2][5] = smaxY - ominY
+							objects[objectIDs[subject][2]][8][2][5] = (smaxY - ominY)*tileSize
 						end
 
 					end
