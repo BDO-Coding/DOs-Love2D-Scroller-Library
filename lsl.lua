@@ -8,6 +8,8 @@ lsl.physics = require "physics"
 
 function lsl.load()
 
+	scale = love.graphics.getWidth()/1200 -- 1200(the width we are optimising for)
+
 	menuPage = 0
 	runPage = "inGame"
 	inGame = false
@@ -23,11 +25,16 @@ end
 
 function lsl.draw()
 
+	love.graphics.push()
+	love.graphics.scale(scale)
+
 	if(inGame==true)then
 		lsl.scroll.draw()
 		lsl.physics.draw()
 	end
 	lsl.ui.draw()
+
+	love.graphics.pop()
 
 end
 
@@ -43,5 +50,5 @@ function lsl.update()
 	end
 
 end
-
+ 
 return lsl

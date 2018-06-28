@@ -5,6 +5,7 @@ function scroll.setup(args)
 	hasBeenSetup = true
 
 	zoomToMouse = false
+
 	if args.zoomToMouse then zoomToMouse = args.zoomToMouse end
 
 	if not(args.tilemap or args.mapLength or args.mapHeight or tileSize) then
@@ -85,6 +86,7 @@ function scroll.load()
 
 	mapLength,mapHeight = 10,10
 	zoom = 1
+	lastZoom = 1
 	cameraX,cameraY = -50,-50 --start in middle of map
 	zoomOffset = 0
 
@@ -126,14 +128,26 @@ function scroll.update()
 	checkForKeyPresses()
 	capZoom()
 
-	if zoomToMouse == true then --WIP
-
-		centreX = love.mouse.getX()
-		centreY = love.mouse.getY()
-
-	end
+	centerCamera()
 
 	doMouseSelection()
+
+end
+
+function centerCamera()
+
+	if zoomToMouse == true then --WIP
+		zoomX = love.mouse.getX()
+		zoomY = love.mouse.getY()
+	else
+		zoomX = love.graphics.getWidth()/2
+		zoomY = love.graphics.getHeight()/2
+	end
+
+	zoomChange = zoom/lastZoom
+    centreX = zoomX - zoomChange*(zoomX - centreX)
+    centreY = zoomY - zoomChange*(zoomY - centreY)
+    lastZoom = zoom	
 
 end
 
